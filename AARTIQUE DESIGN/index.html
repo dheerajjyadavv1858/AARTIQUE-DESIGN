@@ -5,10 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Aartique Design | Premium Commercial Interiors</title>
     
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400;600;700;800&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
-    
+    <script>
+        window.addEventListener('error', function(event) {
+            var errorMsg = event.message || "Unknown Error";
+            var errorLine = event.lineno || 0;
+            document.getElementById('loading-text').innerHTML = 
+                '<span style="color:red; font-weight:bold;">Error: ' + errorMsg + ' (Line: ' + errorLine + ')</span><br><br>Please check console or try refreshing.';
+            document.getElementById('spinner').style.display = 'none';
+        });
+    </script>
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
@@ -33,51 +39,44 @@
         }
       }
     </script>
+
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
     <style>
       body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
       html { scroll-behavior: smooth; }
       
-      /* Simple CSS Animations */
       .hover-scale { transition: transform 0.3s ease; }
       .hover-scale:hover { transform: scale(1.05); }
-      
       .fade-in { animation: fadeIn 1s ease-out; }
       @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-
-      /* Marquee */
       @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
       .animate-marquee { animation: marquee 40s linear infinite; }
-      
-      /* Flip Card CSS */
       .flip-card { perspective: 1000px; }
       .flip-card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; }
       .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
       .flip-card-front, .flip-card-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; border-radius: 0.125rem; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
       .flip-card-back { transform: rotateY(180deg); background-color: white; }
     </style>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
 </head>
 <body>
     
     <div id="root">
         <div style="height: 100vh; display: flex; align-items: center; justify-content: center; background: white; flex-direction: column;">
-            <div style="width: 50px; height: 50px; border: 5px solid #E67E22; border-top-color: transparent; border-radius: 50%; animation: spin 1s linear infinite;"></div>
-            <p style="margin-top: 20px; font-family: sans-serif; color: #4F4F4F;">Loading Website...</p>
+            <div id="spinner" style="width: 50px; height: 50px; border: 5px solid #E67E22; border-top-color: transparent; border-radius: 50%; animation: spin 1s linear infinite;"></div>
+            <p id="loading-text" style="margin-top: 20px; font-family: sans-serif; color: #4F4F4F;">Loading Website...</p>
         </div>
         <style>@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }</style>
     </div>
 
-    <script type="text/babel">
-      // --- SAFE INIT ---
+    <script type="text/babel" data-presets="react">
       const { useState, useEffect } = React;
       const { createRoot } = ReactDOM;
 
-      // --- ICONS (SVG Direct - No Library needed) ---
+      // --- ICONS ---
       const IconMail = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>;
       const IconMenu = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>;
       const IconCheck = () => <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5"/></svg>;
@@ -255,12 +254,11 @@
           <div className="bg-dark-gray text-white py-6 border-b-4 border-primary-orange overflow-hidden">
             <div className="flex w-max animate-marquee hover:[animation-play-state:paused] items-center">
               {marqueeItems.map((feature, index) => (
-                <React.Fragment key={`feature-${index}`}>
-                  <div className="flex items-center gap-3 px-8 md:px-12 transition-transform duration-300 hover:scale-110 hover:text-primary-orange cursor-default">
-                    <div className="text-primary-orange flex-shrink-0 w-6 h-6">{feature.icon}</div><span className="font-semibold text-sm md:text-base tracking-wide whitespace-nowrap">{feature.text}</span>
-                  </div>
-                  <div className="w-2 h-2 bg-primary-orange rotate-45 flex-shrink-0 opacity-50" />
-                </React.Fragment>
+                <div key={`feature-${index}`} className="flex items-center gap-3 px-8 md:px-12 transition-transform duration-300 hover:scale-110 hover:text-primary-orange cursor-default">
+                   <div className="text-primary-orange flex-shrink-0 w-6 h-6">{feature.icon}</div>
+                   <span className="font-semibold text-sm md:text-base tracking-wide whitespace-nowrap">{feature.text}</span>
+                   <div className="w-2 h-2 bg-primary-orange rotate-45 flex-shrink-0 opacity-50 ml-4" />
+                </div>
               ))}
             </div>
           </div>
@@ -622,10 +620,11 @@
       };
 
       try {
-        const root = createRoot(document.getElementById('root'));
+        const container = document.getElementById('root');
+        const root = createRoot(container);
         root.render(<App />);
       } catch (err) {
-        document.body.innerHTML = '<div style="color:red; padding:20px; font-family:sans-serif;"><h1>Rendering Error</h1><p>' + err.message + '</p></div>';
+        throw new Error(err.message);
       }
     </script>
 </body>
