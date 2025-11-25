@@ -1,437 +1,564 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Aartique Design | Premium Commercial Interiors</title>
-  <meta name="description" content="Aartique Designs — Premium commercial interiors for workplace, retail & institutes. Fast delivery, tech-driven, end-to-end project management." />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400;600;700;800&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aartique Design | Premium Commercial Interiors</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400;600;700;800&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              'primary-orange': '#E67E22',
+              'dark-gray': '#4F4F4F',
+              'light-gray': '#F1F1F1',
+              'lighter-gray': '#E9E9E9',
+              'border-gray': '#e0e0e0',
+            },
+            fontFamily: {
+              sans: ['Open Sans', 'sans-serif'],
+              heading: ['Montserrat', 'sans-serif'],
+            },
+            boxShadow: {
+              'card': '0 4px 20px rgba(0,0,0,0.08)',
+              'card-hover': '0 10px 25px rgba(0,0,0,0.12)',
+            }
+          }
+        }
+      }
+    </script>
+    
+    <style>
+      /* Custom scrollbar */
+      ::-webkit-scrollbar { width: 8px; height: 8px; }
+      ::-webkit-scrollbar-track { background: #f1f1f1; }
+      ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 4px; }
+      ::-webkit-scrollbar-thumb:hover { background: #E67E22; }
+      body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+      html { scroll-behavior: smooth; }
+      
+      /* Animations */
+      @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+      .animate-marquee { animation: marquee 40s linear infinite; }
+      @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+      .animate-scroll { animation: scroll 40s linear infinite; }
+      @media (max-width: 768px) { .animate-marquee, .animate-scroll { animation-duration: 25s; } }
 
-  <style>
-    /* Small custom styles */
-    :root{
-      --primary:#E67E22;
-      --dark:#4F4F4F;
-      --light:#F1F1F1;
-    }
-    body{font-family:"Open Sans",sans-serif;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
-    .font-heading{font-family:"Montserrat",sans-serif}
-    ::-webkit-scrollbar{width:8px;height:8px}
-    ::-webkit-scrollbar-thumb{background:#ccc;border-radius:6px}
-    .animate-marquee{animation:marquee 36s linear infinite}
-    @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-  </style>
-</head>
-<body class="bg-white text-gray-800">
+      /* Flip Card Utilities */
+      .perspective-1000 { perspective: 1000px; }
+      .transform-style-3d { transform-style: preserve-3d; }
+      .backface-hidden { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+      .rotate-y-180 { transform: rotateY(180deg); }
+    </style>
 
-<!-- Root App -->
-<div id="app" class="min-h-screen flex flex-col">
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="importmap">
+    {
+      "imports": {
+        "react": "https://esm.sh/react@18.2.0",
+        "react-dom": "https://esm.sh/react-dom@18.2.0",
+        "react-dom/client": "https://esm.sh/react-dom@18.2.0/client",
+        "framer-motion": "https://esm.sh/framer-motion@10.16.4?deps=react@18.2.0,react-dom@18.2.0",
+        "lucide-react": "https://esm.sh/lucide-react@0.292.0?deps=react@18.2.0"
+      }
+    }
+    </script>
+  </head>
+  <body>
+    <form name="contact" netlify netlify-honeypot="bot-field" hidden>
+      <input type="text" name="name" /> <input type="email" name="email" /> <input type="text" name="phone" />
+      <input type="text" name="city" /> <input type="text" name="budget" /> <input type="text" name="area" />
+      <textarea name="requirements"></textarea>
+    </form>
 
-  <!-- HEADER -->
-  <header id="site-header" class="fixed w-full bg-white z-50 shadow-sm">
-    <div class="border-t-4 border-[var(--primary)]"></div>
-    <div class="container mx-auto px-4 md:px-8 flex items-center justify-between py-4">
-      <a href="#" class="flex items-center gap-3">
-        <svg class="w-10 h-10" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M50 10 L85 90 H15 L50 10Z" stroke="var(--primary)" stroke-width="8" stroke-linejoin="round"/>
-          <path d="M32 65 H68" stroke="var(--primary)" stroke-width="8" stroke-linecap="round"/>
-        </svg>
-        <div class="flex flex-col -space-y-1">
-          <span class="font-heading font-bold uppercase text-lg tracking-wide text-[var(--dark)]">Aartique</span>
-          <span class="text-xs tracking-widest font-bold text-gray-400">Designs</span>
-        </div>
-      </a>
+    <div id="root"></div>
 
-      <nav class="hidden md:flex items-center gap-6">
-        <a href="#services" class="text-sm hover:text-[var(--primary)]">Services</a>
-        <a href="#about" class="text-sm hover:text-[var(--primary)]">About</a>
-        <a href="#testimonials" class="text-sm hover:text-[var(--primary)]">Testimonials</a>
-        <a href="#contact" class="text-sm hover:text-[var(--primary)]">Contact</a>
-        <a href="mailto:aartiqueinteriors@gmail.com" class="text-sm font-semibold text-gray-600 hover:text-[var(--primary)]">aartiqueinteriors@gmail.com</a>
-      </nav>
+    <script type="text/babel" data-type="module" data-presets="react">
+      import React, { useState, useEffect } from 'react';
+      import { createRoot } from 'react-dom/client';
+      import { motion, AnimatePresence } from 'framer-motion';
+      import { 
+        Mail, Menu, MessageCircle, Check, Clock, ShieldCheck, PenTool, Home, 
+        Layout, Palette, Box, DollarSign, Users, Award, Zap, Shield, Cpu, 
+        ChevronLeft, ChevronRight, Search, MapPin, Plus, Facebook, Instagram, Quote 
+      } from 'lucide-react';
 
-      <!-- mobile -->
-      <div class="md:hidden">
-        <button id="mobile-open" aria-label="open menu" class="p-2">
-          <!-- hamburger -->
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" x2="21" y1="6" y2="6"/><line x1="3" x2="21" y1="12" y2="12"/><line x1="3" x2="21" y1="18" y2="18"/></svg>
-        </button>
-      </div>
-    </div>
-  </header>
+      // --- Components ---
 
-  <!-- MOBILE MENU -->
-  <div id="mobile-menu" class="fixed inset-0 bg-black/40 z-40 hidden">
-    <div class="bg-white w-3/4 h-full p-6">
-      <div class="flex justify-between items-center mb-6">
-        <div class="flex items-center gap-3">
-          <svg class="w-10 h-10" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M50 10 L85 90 H15 L50 10Z" stroke="var(--primary)" stroke-width="8" stroke-linejoin="round"/>
-            <path d="M32 65 H68" stroke="var(--primary)" stroke-width="8" stroke-linecap="round"/>
-          </svg>
-          <div>
-            <div class="font-heading font-bold uppercase">Aartique</div>
-            <div class="text-xs text-gray-400">Designs</div>
-          </div>
-        </div>
-        <button id="mobile-close" aria-label="close menu" class="p-2">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
-        </button>
-      </div>
-      <nav class="flex flex-col gap-4">
-        <a href="#services" class="py-2">Services</a>
-        <a href="#about" class="py-2">About</a>
-        <a href="#testimonials" class="py-2">Testimonials</a>
-        <a href="#contact" class="py-2">Contact</a>
-        <a href="mailto:aartiqueinteriors@gmail.com" class="py-2 text-sm text-[var(--primary)]">aartiqueinteriors@gmail.com</a>
-      </nav>
-    </div>
-  </div>
+      const Logo = ({ variant = 'dark', className = '' }) => {
+        const textColor = variant === 'dark' ? 'text-dark-gray' : 'text-white';
+        const subTextColor = variant === 'dark' ? 'text-gray-500' : 'text-gray-400';
+        const iconColor = '#E67E22'; 
+        return (
+          <div className={`flex items-center gap-3 ${className}`}>
+            <div className="relative w-10 h-10 flex-shrink-0">
+              <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50 10 L85 90 H15 L50 10Z" stroke={iconColor} strokeWidth="8" strokeLinejoin="round" />
+                <path d="M32 65 H68" stroke={iconColor} strokeWidth="8" strokeLinecap="round" />
+              </svg>
+            </div>
+            <div className="flex flex-col justify-center -space-y-1">
+              <span className={`font-heading font-bold text-xl tracking-wider uppercase ${textColor}`}>Aartique</span>
+              <span className={`font-sans text-[10px] font-bold tracking-[0.3em] uppercase ${subTextColor}`}>Designs</span>
+            </div>
+          </div>
+        );
+      };
 
-  <!-- HERO -->
-  <section id="hero" class="pt-28 pb-12 bg-[color:var(--light)]">
-    <div class="container mx-auto px-4 md:px-8 flex flex-col lg:flex-row gap-8 items-start">
-      <div class="lg:w-2/3">
-        <h1 class="font-heading font-extrabold text-4xl md:text-6xl leading-tight text-[var(--dark)]">
-          Fast, Premium <span class="text-[var(--primary)]">Interiors</span>
-        </h1>
-        <p class="mt-4 text-gray-600 max-w-xl">Hassle-free interiors for modern businesses. Workplace, Retail & Institutes — tech-driven planning, speed-first delivery.</p>
+      const Header = () => {
+        const [scrolled, setScrolled] = useState(false);
+        useEffect(() => {
+          const handleScroll = () => setScrolled(window.scrollY > 20);
+          window.addEventListener('scroll', handleScroll);
+          return () => window.removeEventListener('scroll', handleScroll);
+        }, []);
+        return (
+          <motion.header initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white ${scrolled ? 'shadow-md py-2' : 'py-4'}`}>
+            <div className="absolute top-0 left-0 right-0 h-1 bg-primary-orange" />
+            <div className="container mx-auto px-4 md:px-8 flex justify-between items-center">
+              <Logo variant="dark" />
+              <div className="flex items-center gap-6">
+                <a href="mailto:aartiqueinteriors@gmail.com" className="hidden md:flex items-center gap-2 text-sm font-semibold hover:text-primary-orange transition-colors">
+                  <Mail size={16} className="text-primary-orange" /> <span>aartiqueinteriors@gmail.com</span>
+                </a>
+                <button className="md:hidden p-2 text-dark-gray"><Menu size={24} /></button>
+              </div>
+            </div>
+          </motion.header>
+        );
+      };
 
-        <div class="mt-6 grid grid-cols-2 gap-4 md:grid-cols-3">
-          <div class="bg-white p-4 rounded shadow-sm border">
-            <div class="text-[var(--primary)] font-bold">45-day Delivery</div>
-            <div class="text-xs text-gray-500">Guaranteed timeline</div>
-          </div>
-          <div class="bg-white p-4 rounded shadow-sm border">
-            <div class="text-[var(--primary)] font-bold">5 Year Warranty</div>
-            <div class="text-xs text-gray-500">On select works</div>
-          </div>
-          <div class="bg-white p-4 rounded shadow-sm border">
-            <div class="text-[var(--primary)] font-bold">600+ Experts</div>
-            <div class="text-xs text-gray-500">Design & execution</div>
-          </div>
-        </div>
-      </div>
+      const Hero = () => {
+        const [whatsappEnabled, setWhatsappEnabled] = useState(false);
+        const [formData, setFormData] = useState({ name: '', email: '', phone: '', city: '', budget: '', area: '', requirements: '' });
+        const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+        return (
+          <section className="relative pt-24 pb-12 bg-light-gray/30 overflow-hidden" id="contact">
+            <div className="container mx-auto px-4 md:px-8">
+              <div className="flex flex-col lg:flex-row gap-8 items-start">
+                <div className="w-full lg:w-7/12 xl:w-2/3 pt-4">
+                    <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: "easeOut" }}>
+                      <h1 className="font-heading font-extrabold text-5xl md:text-6xl lg:text-7xl text-dark-gray leading-tight mb-6">Fast, Premium <br /><span className="text-primary-orange">Interiors</span></h1>
+                      <p className="text-lg text-gray-600 mb-8 max-w-lg leading-relaxed">Hassle-free interiors for modern businesses. We specialize in Workplace, Retail, and Institutes with tech-driven delivery.</p>
+                    </motion.div>
+                    <motion.div initial={{ scale: 1.03, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 1, delay: 0.2 }} className="w-full h-[400px] md:h-[500px] rounded-sm overflow-hidden shadow-lg">
+                      <img src="front.jpg" alt="Premium Interior Design" className="w-full h-full object-cover" loading="eager" />
+                    </motion.div>
+                </div>
+                <div className="w-full lg:w-5/12 xl:w-1/3 lg:sticky lg:top-24 z-30">
+                  <motion.div initial={{ x: 50, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ duration: 0.6, delay: 0.4 }} className="bg-white p-6 md:p-8 rounded-sm shadow-card border-t-4 border-primary-orange">
+                    <h2 className="font-heading font-bold text-2xl mb-6 text-dark-gray">Start Your Project</h2>
+                    <form className="space-y-5" name="contact" method="POST" data-netlify="true">
+                      <input type="hidden" name="form-name" value="contact" />
+                      <div className="relative"><input type="text" name="name" placeholder="Name*" required className="w-full border-b border-gray-300 py-2 focus:outline-none focus:border-primary-orange bg-transparent placeholder-gray-400 text-sm" value={formData.name} onChange={handleChange} /></div>
+                      <div className="grid grid-cols-2 gap-4">
+                        <input type="email" name="email" placeholder="Email*" required className="w-full border-b border-gray-300 py-2 focus:outline-none focus:border-primary-orange bg-transparent placeholder-gray-400 text-sm" value={formData.email} onChange={handleChange} />
+                        <input type="tel" name="phone" placeholder="Phone*" required className="w-full border-b border-gray-300 py-2 focus:outline-none focus:border-primary-orange bg-transparent placeholder-gray-400 text-sm" value={formData.phone} onChange={handleChange} />
+                      </div>
+                      <div className="grid grid-cols-2 gap-4">
+                        <select name="city" className="w-full border-b border-gray-300 py-2 focus:outline-none focus:border-primary-orange bg-transparent text-gray-500 text-sm" value={formData.city} onChange={handleChange}>
+                          <option value="">City*</option><option value="Delhi">Delhi</option><option value="Gurgaon">Gurgaon</option><option value="Noida">Noida</option><option value="Other">Other</option>
+                        </select>
+                        <select name="budget" className="w-full border-b border-gray-300 py-2 focus:outline-none focus:border-primary-orange bg-transparent text-gray-500 text-sm" value={formData.budget} onChange={handleChange}>
+                          <option value="">Budget*</option><option value="5-10L">5-10L</option><option value="10-20L">10-20L</option><option value="20L+">20L+</option>
+                        </select>
+                      </div>
+                      <select name="area" className="w-full border-b border-gray-300 py-2 focus:outline-none focus:border-primary-orange bg-transparent text-gray-500 text-sm" value={formData.area} onChange={handleChange}>
+                        <option value="">Project Area (Sq.ft)*</option><option value="<1000">&lt; 1000</option><option value="1000-5000">1000 - 5000</option><option value="5000+">5000+</option>
+                      </select>
+                      <textarea name="requirements" rows={3} placeholder="Tell us about your requirements" className="w-full border-b border-gray-300 py-2 focus:outline-none focus:border-primary-orange bg-transparent placeholder-gray-400 text-sm resize-none" value={formData.requirements} onChange={handleChange}></textarea>
+                      <div className="flex items-center justify-between py-2 cursor-pointer" onClick={() => setWhatsappEnabled(!whatsappEnabled)}>
+                        <div className="flex items-center gap-2 text-sm text-gray-600"><MessageCircle size={18} className={whatsappEnabled ? "text-green-500" : "text-gray-400"} /><span>Contact via Whatsapp</span></div>
+                        <div className={`w-10 h-5 rounded-full relative transition-colors duration-300 ${whatsappEnabled ? 'bg-primary-orange' : 'bg-gray-300'}`}><div className={`absolute top-1 left-1 bg-white w-3 h-3 rounded-full transition-transform duration-300 ${whatsappEnabled ? 'translate-x-5' : ''}`} /></div>
+                      </div>
+                      <button type="submit" className="w-full bg-primary-orange text-white py-3 font-bold uppercase tracking-wider text-sm hover:bg-orange-600 transition-colors shadow-lg mt-4">Get Free Consultation</button>
+                    </form>
+                  </motion.div>
+                </div>
+              </div>
+            </div>
+          </section>
+        );
+      };
 
-      <div class="lg:w-1/3">
-        <div class="bg-white p-6 rounded shadow-card border-t-4 border-[var(--primary)]">
-          <h3 class="font-heading font-bold text-2xl mb-3">Start Your Project</h3>
-          <form id="lead-form" class="space-y-3">
-            <input name="name" required placeholder="Name*" class="w-full border-b py-2 focus:outline-none" />
-            <div class="grid grid-cols-2 gap-3">
-              <input type="email" name="email" required placeholder="Email*" class="w-full border-b py-2 focus:outline-none"/>
-              <input type="tel" name="phone" required placeholder="Phone*" class="w-full border-b py-2 focus:outline-none"/>
-            </div>
-            <div class="grid grid-cols-2 gap-3">
-              <select name="city" class="w-full border-b py-2 focus:outline-none">
-                <option value="">City*</option>
-                <option>Delhi</option>
-                <option>Gurgaon</option>
-                <option>Noida</option>
-                <option>Other</option>
-              </select>
-              <select name="budget" class="w-full border-b py-2 focus:outline-none">
-                <option value="">Budget*</option>
-                <option>5-10L</option><option>10-20L</option><option>20L+</option>
-              </select>
-            </div>
-            <select name="area" class="w-full border-b py-2 focus:outline-none">
-              <option value="">Project Area (Sq.ft)*</option>
-              <option value="<1000">&lt; 1000</option>
-              <option value="1000-5000">1000 - 5000</option>
-              <option value="5000+">5000+</option>
-            </select>
-            <textarea name="requirements" rows="3" placeholder="Tell us about requirements" class="w-full border-b py-2 focus:outline-none"></textarea>
+      const Features = () => {
+        const featuresData = [ { id: 1, icon: <Clock size={24} />, text: '45-day Delivery Guarantee' }, { id: 2, icon: <ShieldCheck size={24} />, text: '5 Year Warranty' }, { id: 3, icon: <PenTool size={24} />, text: 'Post-installation Service' }, { id: 4, icon: <Home size={24} />, text: '600+ Design Experts' } ];
+        const marqueeItems = [...featuresData, ...featuresData, ...featuresData, ...featuresData];
+        return (
+          <div className="bg-dark-gray text-white py-6 border-b-4 border-primary-orange overflow-hidden">
+            <div className="flex w-max animate-marquee hover:[animation-play-state:paused] items-center">
+              {marqueeItems.map((feature, index) => (
+                <React.Fragment key={`feature-${index}`}>
+                  <div className="flex items-center gap-3 px-8 md:px-12 transition-transform duration-300 hover:scale-110 hover:text-primary-orange cursor-default">
+                    <div className="text-primary-orange flex-shrink-0">{feature.icon}</div><span className="font-semibold text-sm md:text-base tracking-wide whitespace-nowrap">{feature.text}</span>
+                  </div>
+                  <div className="w-2 h-2 bg-primary-orange rotate-45 flex-shrink-0 opacity-50" />
+                </React.Fragment>
+              ))}
+            </div>
+          </div>
+        );
+      };
 
-            <div class="flex items-center gap-3">
-              <input type="checkbox" id="terms" required />
-              <label for="terms" class="text-xs text-gray-500">I agree to Terms & Privacy. I consent to be contacted.</label>
-            </div>
+      const Offers = () => {
+        const offers = [ { id: 1, icon: <Layout />, title: "Space Planning", description: "Strategic layouts designed for optimal workflow, collaboration, and future growth." }, { id: 2, icon: <Palette />, title: "Bespoke Designs", description: "Unique aesthetics tailored to your brand identity." }, { id: 3, icon: <Box />, title: "Modular Furniture", description: "Ergonomic workstations and adaptable meeting pods." }, { id: 4, icon: <DollarSign />, title: "Value Optimization", description: "Transparent pricing with no hidden costs." }, { id: 5, icon: <Users />, title: "Project Management", description: "End-to-end project leadership ensuring on-time, on-budget, and stress-free delivery." }, { id: 6, icon: <Award />, title: "Quality Assurance", description: "Spaces built to last, reflecting superior materials and meticulous attention to detail." } ];
+        return (
+          <section className="py-20 bg-white">
+            <div className="container mx-auto px-4 md:px-8">
+              <div className="text-center mb-16">
+                <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="font-heading font-bold text-3xl md:text-4xl lg:text-5xl mb-4 text-dark-gray">What We <span className="text-primary-orange">Offer</span></motion.h2>
+                <motion.div initial={{ width: 0 }} whileInView={{ width: 80 }} viewport={{ once: true }} className="h-1 bg-primary-orange mx-auto" />
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {offers.map((offer, index) => (
+                  <motion.div key={offer.id} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.1, duration: 0.5 }} whileHover={{ y: -6, boxShadow: "0 20px 30px -10px rgba(0, 0, 0, 0.1)" }} className="bg-white p-8 border border-gray-100 rounded-sm shadow-card group transition-all duration-300">
+                    <div className="w-14 h-14 bg-light-gray rounded-full flex items-center justify-center text-dark-gray mb-6 group-hover:bg-primary-orange group-hover:text-white transition-colors duration-300">{React.cloneElement(offer.icon, { size: 28 })}</div>
+                    <h3 className="font-heading font-bold text-xl mb-3 text-dark-gray">{offer.title}</h3><p className="text-gray-500 leading-relaxed text-sm">{offer.description}</p>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </section>
+        );
+      };
 
-            <button type="submit" class="w-full bg-[var(--primary)] text-white py-3 font-bold uppercase">Get Free Consultation</button>
-            <div id="form-msg" class="text-sm text-center mt-2"></div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </section>
+      const WhyCubico = () => {
+        return (
+          <section className="bg-light-gray py-20 overflow-hidden" id="about">
+            <div className="container mx-auto px-4 md:px-8 space-y-24">
+              <div className="flex flex-col md:flex-row items-center gap-10">
+                <motion.div initial={{ opacity: 0, x: -50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className="w-full md:w-1/2 relative">
+                  <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1200&auto=format&fit=crop" alt="Tech Driven Design" className="w-full h-[400px] object-cover rounded-sm shadow-lg" />
+                  <motion.div initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.3, duration: 0.6 }} className="absolute -bottom-8 -right-4 md:-right-10 bg-white p-6 shadow-xl max-w-xs border-l-4 border-primary-orange">
+                    <Cpu className="text-primary-orange mb-3" size={32} /><h3 className="font-heading font-bold text-xl mb-2">Tech Driven</h3><p className="text-sm text-gray-500">We utilize cutting-edge technology for precision planning and faster execution.</p>
+                  </motion.div>
+                </motion.div>
+                <div className="w-full md:w-1/2 md:pl-12"><h2 className="font-heading font-bold text-3xl md:text-4xl mb-6 text-dark-gray">Why Choose <span className="text-primary-orange">Aartique?</span></h2><p className="text-gray-600 leading-loose text-lg">At Aartique Design, we blend creativity with technology. Our premium commercial interiors are designed to elevate your brand presence while ensuring functionality. We deliver quality, speed, and aesthetics.</p></div>
+              </div>
+              <div className="flex flex-col md:flex-row-reverse items-center gap-10">
+                <motion.div initial={{ opacity: 0, x: 50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className="w-full md:w-1/2 relative">
+                  <img src="premium and fast.jpg" alt="Premium Quality" className="w-full h-[400px] object-cover rounded-sm shadow-lg" />
+                  <motion.div initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.3, duration: 0.6 }} className="absolute -bottom-8 -left-4 md:-left-10 bg-white p-6 shadow-xl max-w-xs border-r-4 border-primary-orange text-right">
+                    <div className="flex justify-end mb-3"><Shield className="text-primary-orange" size={32} /></div><h3 className="font-heading font-bold text-xl mb-2">Premium & Fast</h3><p className="text-sm text-gray-500">Experience hassle-free delivery of premium interiors tailored to modern business needs.</p>
+                  </motion.div>
+                </motion.div>
+                <div className="w-full md:w-1/2 md:pr-12 text-right md:text-left"><h2 className="font-heading font-bold text-3xl md:text-4xl mb-6 text-dark-gray">Expertise in <span className="text-primary-orange">Retail & Workplace</span></h2><p className="text-gray-600 leading-loose text-lg">With 4+ years of experience, we master the art of Workplace Designing, Retail Spaces, and Institutes. Our approach is client-centric and result-oriented.</p></div>
+              </div>
+            </div>
+          </section>
+        );
+      };
 
-  <!-- MARQUEE FEATURES -->
-  <div class="bg-[var(--dark)] text-white py-4 border-b-4 border-[var(--primary)] overflow-hidden">
-    <div class="container mx-auto px-4 md:px-8">
-      <div class="flex w-max animate-marquee whitespace-nowrap gap-8">
-        <div class="flex items-center gap-3 px-6"><strong class="text-[var(--primary)]">45-day</strong><span>Delivery</span></div>
-        <div class="flex items-center gap-3 px-6"><strong class="text-[var(--primary)]">5 Year</strong><span>Warranty</span></div>
-        <div class="flex items-center gap-3 px-6"><strong class="text-[var(--primary)]">Post-install</strong><span>Service</span></div>
-        <div class="flex items-center gap-3 px-6"><strong class="text-[var(--primary)]">600+</strong><span>Design Experts</span></div>
-        <!-- repeat for smooth loop -->
-        <div class="flex items-center gap-3 px-6"><strong class="text-[var(--primary)]">45-day</strong><span>Delivery</span></div>
-        <div class="flex items-center gap-3 px-6"><strong class="text-[var(--primary)]">5 Year</strong><span>Warranty</span></div>
-      </div>
-    </div>
-  </div>
+      const Gallery = () => {
+        const [activeCategory, setActiveCategory] = useState('Workplace');
+        const galleryCategories = ['Workplace', 'Retail', 'Institutes', 'Hospitality'];
+        const galleryImages = { 'Workplace': 'workpace design.jpg', 'Retail': 'retail.jpg', 'Institutes': 'institute.jpg', 'Hospitality': 'hospitility.jpg' };
+        const handleNext = () => setActiveCategory(galleryCategories[(galleryCategories.indexOf(activeCategory) + 1) % galleryCategories.length]);
+        const handlePrev = () => setActiveCategory(galleryCategories[(galleryCategories.indexOf(activeCategory) - 1 + galleryCategories.length) % galleryCategories.length]);
+        return (
+          <section className="py-20 bg-white" id="services">
+            <div className="container mx-auto px-4 md:px-8">
+              <div className="flex flex-col lg:flex-row gap-8 min-h-[500px]">
+                <div className="w-full lg:w-1/4 flex flex-col justify-center space-y-2">
+                  <h3 className="text-2xl font-bold mb-6 px-6">Our Expertise</h3>
+                  {galleryCategories.map((cat) => (
+                    <div key={cat} onClick={() => setActiveCategory(cat)} className={`cursor-pointer px-6 py-4 text-lg font-heading font-bold transition-all duration-300 border-l-4 ${activeCategory === cat ? 'border-primary-orange text-primary-orange bg-light-gray' : 'border-transparent text-gray-400 hover:text-dark-gray'}`}>{cat}</div>
+                  ))}
+                </div>
+                <div className="w-full lg:w-3/4 relative group">
+                  <div className="relative w-full h-[400px] md:h-[500px] overflow-hidden rounded-sm shadow-xl">
+                    <AnimatePresence mode='wait'><motion.img key={activeCategory} src={galleryImages[activeCategory]} alt={activeCategory} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.5 }} className="w-full h-full object-cover" /></AnimatePresence>
+                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-8"><h3 className="text-white font-heading font-bold text-3xl">{activeCategory} Designing</h3></div>
+                  </div>
+                  <div className="flex gap-2 mt-4 justify-end">
+                      <button onClick={handlePrev} className="w-12 h-12 bg-primary-orange text-white flex items-center justify-center hover:bg-orange-700 transition-colors"><ChevronLeft /></button>
+                      <button onClick={handleNext} className="w-12 h-12 bg-primary-orange text-white flex items-center justify-center hover:bg-orange-700 transition-colors"><ChevronRight /></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        );
+      };
 
-  <!-- OFFERS / SERVICES -->
-  <section id="services" class="py-20">
-    <div class="container mx-auto px-4 md:px-8">
-      <div class="text-center mb-12">
-        <h2 class="font-heading text-3xl md:text-4xl font-bold">What We <span class="text-[var(--primary)]">Offer</span></h2>
-        <div class="h-1 w-20 bg-[var(--primary)] mx-auto mt-4"></div>
-      </div>
+      const Stats = () => {
+        const statsData = [ { label: 'Years Experience', value: '4+' }, { label: 'Square Feet Delivered', value: '50k+' }, { label: 'Happy Clients', value: '100+' }, { label: 'Design Awards', value: '12' } ];
+        return (
+          <section className="py-24 bg-dark-gray text-white relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-primary-orange opacity-10 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2" />
+            <div className="container mx-auto px-4 md:px-8 text-center relative z-10">
+              <h2 className="font-heading font-bold text-3xl md:text-4xl mb-16">Powered by Excellence</h2>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
+                {statsData.map((stat, index) => (
+                  <motion.div key={index} initial={{ opacity: 0, scale: 0.8 }} whileInView={{ opacity: 1, scale: 1 }} transition={{ delay: index * 0.1, duration: 0.5 }} viewport={{ once: true }} className="flex flex-col items-center">
+                    <span className="font-heading font-extrabold text-5xl md:text-6xl text-primary-orange mb-2">{stat.value}</span><span className="text-gray-300 font-semibold tracking-wide uppercase text-sm">{stat.label}</span>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </section>
+        );
+      };
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <div class="bg-white p-6 rounded shadow-sm border">
-          <div class="mb-4"><strong class="text-[var(--primary)]">Space Planning</strong></div>
-          <p class="text-sm text-gray-500">Strategic layouts designed for optimal workflow and collaboration.</p>
-        </div>
-        <div class="bg-white p-6 rounded shadow-sm border">
-          <div class="mb-4"><strong class="text-[var(--primary)]">Bespoke Designs</strong></div>
-          <p class="text-sm text-gray-500">Unique aesthetics tailored to your brand identity.</p>
-        </div>
-        <div class="bg-white p-6 rounded shadow-sm border">
-          <div class="mb-4"><strong class="text-[var(--primary)]">Modular Furniture</strong></div>
-          <p class="text-sm text-gray-500">Ergonomic workstations and adaptable meeting pods.</p>
-        </div>
-        <div class="bg-white p-6 rounded shadow-sm border">
-          <div class="mb-4"><strong class="text-[var(--primary)]">Value Optimization</strong></div>
-          <p class="text-sm text-gray-500">Transparent pricing with no hidden costs.</p>
-        </div>
-        <div class="bg-white p-6 rounded shadow-sm border">
-          <div class="mb-4"><strong class="text-[var(--primary)]">Project Management</strong></div>
-          <p class="text-sm text-gray-500">End-to-end leadership ensuring on-time delivery.</p>
-        </div>
-        <div class="bg-white p-6 rounded shadow-sm border">
-          <div class="mb-4"><strong class="text-[var(--primary)]">Quality Assurance</strong></div>
-          <p class="text-sm text-gray-500">Superior materials & meticulous attention to detail.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+      const Projects = () => {
+        const projectsData = [
+          { id: 1, title: 'Real Estate Office', client: 'Goyal & Co.', desc: 'Crafting a workspace that embodies commitment to excellence, fostering collaboration, innovation, and employee well-being.', img: 'project1.jpg' },
+          { id: 2, title: 'Tropical Design Mock', client: 'Media Monks', desc: 'A celebration of nature\'s bounty. Inspired by the vibrant hues and lush foliage of tropical landscapes, awash in shades of emerald and jade.', img: 'project2.jpg' },
+          { id: 3, title: 'Private Office At Nextra', client: 'Goyal\'s Office', desc: 'A harmonious fusion of creativity for three diverse individuals. A creative sanctuary that resonates with the spirit of every family member.', img: 'project3.jpg' },
+          { id: 4, title: 'Third Unicorn', client: 'Ashneer Grover', desc: 'A journey through meticulously designed interiors where creativity, innovation, and success converge to create an environment unlike any other.', img: 'project4.jpg' },
+          { id: 5, title: 'Luxury CA Office', client: 'Aggarwal & Associates', desc: 'An atmosphere of refined elegance. The reception area exudes warmth and hospitality, designed to make clients feel welcomed and valued.', img: 'project5.jpg' },
+          { id: 6, title: 'Gold Touch Infra', client: 'Dyno Infra', desc: 'Enveloped in an aura of grandeur. The golden aesthetic dominates the space, with shimmering metallic accents exuding luxury and refinement.', img: 'project6.jpg' },
+        ];
 
-  <!-- ABOUT / WHY -->
-  <section id="about" class="py-20 bg-[color:var(--light)]">
-    <div class="container mx-auto px-4 md:px-8 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-      <div>
-        <h3 class="font-heading text-3xl font-bold mb-4">Why Choose <span class="text-[var(--primary)]">Aartique?</span></h3>
-        <p class="text-gray-700 leading-relaxed">We blend creativity with technology. Our interiors elevate your brand while ensuring functionality, speed and quality. 4+ years experience in workplace, retail & institutes.</p>
-        <ul class="mt-6 space-y-2 text-sm text-gray-600">
-          <li>• Tech-driven planning (BIM/CAD)</li>
-          <li>• Faster execution with reliable partners</li>
-          <li>• Transparent billing & value optimization</li>
-        </ul>
-      </div>
-      <div>
-        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1200&auto=format&fit=crop" alt="Tech driven design" class="rounded shadow-lg w-full h-72 object-cover" />
-      </div>
-    </div>
-  </section>
+        const ProjectCard = ({ project }) => {
+          const [isFlipped, setIsFlipped] = useState(false);
+          return (
+            <div className="relative h-80 w-full cursor-pointer perspective-1000 group" onClick={() => setIsFlipped(!isFlipped)}>
+              <motion.div className="w-full h-full relative transform-style-3d" animate={{ rotateY: isFlipped ? 180 : 0 }} transition={{ duration: 0.6 }}>
+                <div className="absolute inset-0 w-full h-full backface-hidden rounded-sm overflow-hidden shadow-lg bg-gray-100">
+                  <img src={project.img} alt={project.title} className="w-full h-full object-cover" />
+                  <div className="absolute inset-0 bg-black/30 flex items-center justify-center flex-col">
+                    <div className="w-12 h-12 rounded-full border-2 border-white flex items-center justify-center text-white mb-2"><Plus size={20} /></div><h4 className="text-white font-heading font-bold text-xl text-center px-4">{project.title}</h4><p className="text-white/80 text-xs mt-2">Click for details</p>
+                  </div>
+                </div>
+                <div className="absolute inset-0 w-full h-full backface-hidden rotate-y-180 bg-white rounded-sm overflow-hidden shadow-lg border-t-4 border-primary-orange p-6 flex flex-col justify-center text-center">
+                  <h3 className="text-primary-orange font-heading font-bold text-xl mb-2">{project.title}</h3><h4 className="text-dark-gray font-bold text-sm uppercase tracking-widest mb-4">{project.client}</h4><p className="text-gray-600 text-sm leading-relaxed">{project.desc}</p>
+                  <div className="mt-6"><span className="text-xs font-bold text-gray-400 uppercase border border-gray-200 px-3 py-1 rounded-full">View Project</span></div>
+                </div>
+              </motion.div>
+            </div>
+          );
+        };
 
-  <!-- GALLERY -->
-  <section class="py-20">
-    <div class="container mx-auto px-4 md:px-8">
-      <div class="mb-8 flex justify-between items-center">
-        <h3 class="font-heading text-2xl font-bold">Projects Gallery</h3>
-        <div class="text-xs text-gray-500">Click thumbnails to view</div>
-      </div>
+        return (
+          <section className="py-20 bg-light-gray" id="projects">
+              <div className="container mx-auto px-4 md:px-8">
+                <div className="flex justify-between items-end mb-12">
+                  <div><h2 className="font-heading font-bold text-3xl md:text-5xl text-dark-gray">Completed <span className="text-primary-orange">Projects</span></h2></div>
+                  <a href="#" className="hidden md:block text-primary-orange font-bold border-b-2 border-primary-orange pb-1 hover:text-dark-gray hover:border-dark-gray transition-all">View All</a>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  {projectsData.map((proj) => (<ProjectCard key={proj.id} project={proj} />))}
+                </div>
+                <div className="mt-8 text-center md:hidden"><a href="#" className="text-primary-orange font-bold border-b-2 border-primary-orange pb-1">View All Projects</a></div>
+             </div>
+          </section>
+        );
+      };
 
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <div class="col-span-2 md:col-span-2 relative rounded overflow-hidden shadow-lg">
-          <img id="main-img" src="front.jpg" alt="Featured project" class="w-full h-80 object-cover" />
-          <div class="absolute bottom-4 left-4 bg-black/50 text-white p-3 rounded">
-            <div class="font-bold">Featured: Premium Interiors</div>
-            <div class="text-xs">Workplace / Retail / Institutes</div>
-          </div>
-        </div>
+      const Timeline = () => {
+        const timelineSteps = [ { id: 1, step: '01', title: 'Strategy & Design', desc: 'We analyze your needs and create a comprehensive design blueprint including 3D renders.' }, { id: 2, step: '02', title: 'Design Finalization', desc: 'Material selection, budget approval, and final sign-offs to ensure everything is perfect.' }, { id: 3, step: '03', title: 'Production', desc: 'Custom manufacturing of furniture in our automated factory to ensure precision.' }, { id: 4, step: '04', title: 'Civil Work', desc: 'On-site execution including flooring, ceiling, electrical and plumbing works.' }, { id: 5, step: '05', title: 'Handover', desc: 'Final quality checks, deep cleaning, and key handover to your new workspace.' } ];
+        const duplicatedSteps = [...timelineSteps, ...timelineSteps];
+        return (
+          <section className="py-24 bg-white overflow-hidden relative">
+            <div className="container mx-auto px-4 md:px-8 mb-16">
+              <h2 className="font-heading font-bold text-3xl md:text-5xl text-dark-gray text-center">Aartique <span className="text-primary-orange">Journey</span></h2>
+              <p className="text-center text-gray-500 mt-4 max-w-2xl mx-auto">From concept to completion, we handle every step of the process to deliver your dream office on time.</p>
+            </div>
+            <div className="relative w-full">
+              <div className="absolute top-0 left-0 w-16 md:w-32 h-full bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
+              <div className="absolute top-0 right-0 w-16 md:w-32 h-full bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
+              <div className="flex w-max animate-scroll hover:[animation-play-state:paused]">
+                {duplicatedSteps.map((item, index) => (
+                  <div key={`${item.id}-${index}`} className="w-[320px] md:w-[400px] flex-shrink-0 px-4 md:px-8 group cursor-default">
+                    <motion.div className="relative p-6 rounded-lg border border-transparent hover:border-gray-100 hover:shadow-card-hover hover:bg-white transition-all duration-300" whileHover={{ scale: 1.05, y: -5 }} transition={{ type: "spring", stiffness: 400, damping: 25 }}>
+                      <div className="absolute -top-6 left-0 right-0 h-1 bg-gray-100 hidden md:block group-hover:bg-orange-100 transition-colors duration-300" />
+                      <div className="absolute -top-[30px] left-8 w-5 h-5 bg-white border-4 border-gray-300 rounded-full hidden md:block group-hover:border-primary-orange group-hover:scale-125 transition-all duration-300 z-20" />
+                      <div className="flex items-center gap-4 mb-4 pt-4"><span className="font-heading font-extrabold text-5xl md:text-6xl text-gray-200 group-hover:text-primary-orange transition-colors duration-300">{item.step}</span><div className="h-px flex-1 bg-gray-200 group-hover:bg-primary-orange transition-colors" /></div>
+                      <h3 className="font-heading font-bold text-xl md:text-2xl text-dark-gray mb-3 group-hover:text-primary-orange transition-colors">{item.title}</h3><p className="text-gray-500 text-sm md:text-base leading-relaxed group-hover:text-gray-700">{item.desc}</p>
+                    </motion.div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        );
+      };
 
-        <div class="grid grid-cols-2 gap-4">
-          <img class="thumb cursor-pointer w-full h-36 object-cover rounded" src="workpace design.jpg" alt="Workplace" data-src="workpace design.jpg" />
-          <img class="thumb cursor-pointer w-full h-36 object-cover rounded" src="retail.jpg" alt="Retail" data-src="retail.jpg" />
-          <img class="thumb cursor-pointer w-full h-36 object-cover rounded" src="institute.jpg" alt="Institute" data-src="institute.jpg" />
-          <img class="thumb cursor-pointer w-full h-36 object-cover rounded" src="hospitility.jpg" alt="Hospitality" data-src="hospitility.jpg" />
-        </div>
-      </div>
-    </div>
-  </section>
+      // StudiosMap Component with ONLY Delhi List and New Map Image
+      const StudiosMap = () => {
+        return (
+          <section className="py-20 bg-white">
+            <div className="container mx-auto px-4 md:px-8">
+              <div className="flex flex-col lg:flex-row gap-16 items-start">
+                {/* Left: Only Delhi List + NEW LINK */}
+                <div className="w-full lg:w-1/3">
+                  <div className="flex gap-4 mb-8">
+                    <button className="bg-primary-orange text-white px-6 py-2 font-bold shadow-md">Studio -</button>
+                    <button className="border border-gray-300 text-gray-500 px-6 py-2 font-bold">Projects Done +</button>
+                  </div>
+                  <h2 className="font-heading text-3xl text-primary-orange mb-2">Studios</h2>
+                  <div className="h-0.5 w-full bg-primary-orange mb-8"></div>
+                  
+                  <div className="flex flex-col gap-y-4">
+                       <div className="flex items-center gap-3">
+                           <MapPin size={24} className="text-primary-orange" />
+                           <div>
+                               <h4 className="text-primary-orange font-bold text-xl">Delhi</h4>
+                               <p className="text-gray-500 text-sm font-semibold">Headquarters & Main Studio</p>
+                           </div>
+                       </div>
+                       <p className="text-gray-500 text-sm leading-relaxed mt-4">
+                           We currently operate exclusively in Delhi NCR, providing premium interior design services to businesses in the region.
+                       </p>
+                       {/* NEW CLICKABLE LINK ON LEFT SIDE */}
+                       <a 
+                         href="https://www.google.com/maps?q=7,+3rd+Floor+Hargobind+Enclave,+Karkadooma,+Delhi,+India+110092"
+                         target="_blank" 
+                         rel="noopener noreferrer"
+                         className="inline-flex items-center gap-2 text-primary-orange font-bold hover:underline mt-2"
+                       >
+                         <span>View Location on Google Maps</span>
+                         <ChevronRight size={16} />
+                       </a>
+                  </div>
 
-  <!-- TESTIMONIALS -->
-  <section id="testimonials" class="py-20 bg-[color:var(--light)]">
-    <div class="container mx-auto px-4 md:px-8 text-center">
-      <h3 class="font-heading text-3xl font-bold mb-6">What Clients Say</h3>
-      <div class="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div class="bg-white p-6 rounded shadow-sm border">
-          <p class="text-sm text-gray-600">"Aartique delivered faster than expected and the space looks incredible." — <strong>R. Sharma</strong></p>
-        </div>
-        <div class="bg-white p-6 rounded shadow-sm border">
-          <p class="text-sm text-gray-600">"Transparent pricing and great post-install support." — <strong>S. Gupta</strong></p>
-        </div>
-        <div class="bg-white p-6 rounded shadow-sm border">
-          <p class="text-sm text-gray-600">"Professional team and high quality finishes." — <strong>M. Rao</strong></p>
-        </div>
-      </div>
-    </div>
-  </section>
+                </div>
+                {/* Right: New Map Image with Clickable Link - FIXED */}
+                <div className="w-full lg:w-2/3 relative h-[500px] flex items-center justify-center">
+                  {/* Using the new uploaded image, renamed to 'map-with-arrow.jpg' */}
+                  <img 
+                    src="map-with-arrow.jpg" 
+                    alt="India Map showing Delhi studio only" 
+                    className="h-full w-auto object-contain drop-shadow-xl"
+                  />
+                  {/* Invisible Clickable Area over the arrow's tip - LINK FIXED */}
+                  <a 
+                    href="https://www.google.com/maps?q=7,+3rd+Floor+Hargobind+Enclave,+Karkadooma,+Delhi,+India+110092"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    // Position adjusted to center on the arrow tip
+                    className="absolute top-[12%] left-[54%] w-10 h-10 bg-transparent cursor-pointer z-20 rounded-full"
+                    title="Click to view Delhi Studio on Google Maps"
+                  >
+                  </a>
+                </div>
+              </div>
+            </div>
+          </section>
+        );
+      };
 
-  <!-- CTA -->
-  <section class="py-12">
-    <div class="container mx-auto px-4 md:px-8 bg-[var(--primary)] rounded-lg p-6 text-white flex flex-col md:flex-row items-center justify-between gap-6">
-      <div>
-        <h4 class="font-bold text-xl">Ready to transform your space?</h4>
-        <p class="text-sm opacity-90">Get a free consultation and quick quote — starting within 24 hours.</p>
-      </div>
-      <a href="#contact" class="bg-white text-[var(--primary)] px-5 py-3 rounded font-bold">Start Now</a>
-    </div>
-  </section>
+      const FAQ = () => {
+        const faqData = [ { id: 1, question: "What is the typical timeline for an office project?", answer: "Our standard delivery time is 45 days from the design finalization date. This includes production, civil work, and installation." }, { id: 2, question: "Do you provide warranty on the furniture?", answer: "Yes, we provide a 5-year warranty on all modular furniture and a 1-year service warranty on workmanship." }, { id: 3, question: "Is the design consultation free?", answer: "Absolutely! The initial design consultation and budget estimation are completely free of charge." }, { id: 4, question: "Can I customize the furniture designs?", answer: "Yes, while we have a vast catalog, we specialize in bespoke designs tailored to your brand guidelines and space requirements." } ];
+        const [openIndex, setOpenIndex] = useState(0);
+        const toggleFAQ = (index) => setOpenIndex(openIndex === index ? null : index);
+        return (
+          <section className="py-20 bg-white">
+            <div className="container mx-auto px-4 md:px-8 max-w-4xl">
+              <h2 className="font-heading font-bold text-3xl md:text-5xl text-dark-gray text-center mb-12">Got <span className="text-primary-orange">Questions?</span></h2>
+              <div className="space-y-4">
+                {faqData.map((faq, index) => (
+                  <div key={faq.id} className="border border-gray-200 rounded-sm overflow-hidden">
+                    <button onClick={() => toggleFAQ(index)} className="w-full flex justify-between items-center p-6 bg-white hover:bg-gray-50 transition-colors text-left"><span className={`font-bold text-lg ${openIndex === index ? 'text-primary-orange' : 'text-dark-gray'}`}>{faq.question}</span><motion.div animate={{ rotate: openIndex === index ? 45 : 0 }} transition={{ duration: 0.2 }}><Plus size={24} className="text-primary-orange" /></motion.div></button>
+                    <AnimatePresence>{openIndex === index && (<motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.3, ease: "easeInOut" }} className="overflow-hidden"><div className="p-6 pt-0 text-gray-600 leading-relaxed border-t border-gray-100 bg-gray-50/50">{faq.answer}</div></motion.div>)}</AnimatePresence>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        );
+      };
 
-  <!-- CONTACT (footer-like) -->
-  <section id="contact" class="py-16 bg-white">
-    <div class="container mx-auto px-4 md:px-8 grid grid-cols-1 md:grid-cols-2 gap-8">
-      <div>
-        <h3 class="font-heading text-2xl font-bold mb-3">Get In Touch</h3>
-        <p class="text-gray-600 mb-4">Email: aartiqueinteriors@gmail.com</p>
-        <p class="text-gray-600">Phone: +91 72070 58862</p>
-        <div class="mt-6 flex gap-4">
-          <a href="#" aria-label="facebook" class="p-2 bg-gray-100 rounded"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
-          <a href="#" aria-label="instagram" class="p-2 bg-gray-100 rounded"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="20" x="2" y="2" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg></a>
-        </div>
-      </div>
+      const Founder = () => {
+        return (
+          <section className="py-24 bg-white relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-96 h-96 bg-gray-50 rounded-bl-full -z-10" />
+            <div className="container mx-auto px-4 md:px-8">
+              <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-12 lg:gap-20">
+                <motion.div initial={{ opacity: 0, x: -50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className="w-full md:w-5/12 lg:w-4/12 flex-shrink-0">
+                  <div className="relative group cursor-pointer">
+                    <div className="absolute top-4 -left-4 w-full h-full border-4 border-primary-orange rounded-sm z-0 transition-transform duration-500 ease-out group-hover:translate-x-[-10px] group-hover:translate-y-[10px]" />
+                    <div className="relative z-10 rounded-sm overflow-hidden shadow-card h-[400px] md:h-[450px] transition-all duration-500 group-hover:shadow-2xl">
+                      <img src="founder.jpg" alt="Kartik Papreja - Founder" className="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-primary-orange/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    </div>
+                  </div>
+                </motion.div>
+                <motion.div initial={{ opacity: 0, x: 50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.2 }} className="w-full md:w-7/12 lg:w-8/12 text-center md:text-left">
+                  <h2 className="font-heading font-bold text-3xl md:text-4xl text-dark-gray mb-2">Meet the <span className="text-primary-orange">Visionary</span></h2>
+                  <div className="w-16 h-1 bg-primary-orange mx-auto md:mx-0 mb-8" />
+                  <h3 className="font-heading font-bold text-2xl md:text-3xl text-dark-gray">Kartik Papreja</h3>
+                  <p className="text-primary-orange font-bold uppercase tracking-widest text-sm mb-8 mt-2">Founder & Principal Designer</p>
+                  <div className="relative bg-gray-50 p-8 rounded-lg border-l-4 border-primary-orange">
+                    <Quote className="text-primary-orange/20 absolute top-4 left-4" size={48} />
+                    <p className="text-gray-600 leading-loose italic relative z-10 text-lg">"Design is not just about aesthetics; it's about creating environments that inspire efficiency and growth. At Aartique Designs, we merge technical precision with artistic vision to deliver spaces that truly work for your business."</p>
+                  </div>
+                  <div className="mt-8 flex flex-wrap justify-center md:justify-start gap-4">
+                    <span className="px-4 py-2 bg-white border border-gray-200 rounded-full text-xs font-bold text-gray-500 uppercase tracking-wide shadow-sm hover:border-primary-orange hover:text-primary-orange transition-colors cursor-default">Workplace Strategy</span>
+                    <span className="px-4 py-2 bg-white border border-gray-200 rounded-full text-xs font-bold text-gray-500 uppercase tracking-wide shadow-sm hover:border-primary-orange hover:text-primary-orange transition-colors cursor-default">Space Planning</span>
+                    <span className="px-4 py-2 bg-white border border-gray-200 rounded-full text-xs font-bold text-gray-500 uppercase tracking-wide shadow-sm hover:border-primary-orange hover:text-primary-orange transition-colors cursor-default">Project Management</span>
+                  </div>
+                </motion.div>
+              </div>
+            </div>
+          </section>
+        );
+      };
 
-      <div>
-        <div class="bg-white p-6 rounded shadow-sm border">
-          <h4 class="font-bold mb-3">Request a Quote</h4>
-          <form id="contact-form">
-            <input name="name" placeholder="Name*" required class="w-full border-b py-2 focus:outline-none mb-2"/>
-            <input type="email" name="email" placeholder="Email*" required class="w-full border-b py-2 focus:outline-none mb-2"/>
-            <input name="phone" placeholder="Phone*" required class="w-full border-b py-2 focus:outline-none mb-2"/>
-            <textarea name="message" rows="3" placeholder="Message" class="w-full border-b py-2 focus:outline-none mb-3"></textarea>
+      const Footer = () => {
+        return (
+          <footer className="bg-dark-gray text-white pt-16 pb-8 border-t-8 border-primary-orange">
+            <div className="container mx-auto px-4 md:px-8">
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+                <div className="md:col-span-1">
+                    <div className="mb-6"><Logo variant="light" /></div>
+                    <p className="text-gray-400 text-sm leading-relaxed mb-6">Fast, premium, hassle-free interiors for modern businesses. Led by Principal Designer Kartik Papreja.</p>
+                    <div className="text-gray-400 text-sm mb-4"><p>7, 3rd Floor Hargobind Enclave,</p><p>Karkadooma, Delhi, 110092</p><p className="mt-2 text-primary-orange font-bold">+91 9315623951</p><p>aartiqueinteriors@gmail.com</p></div>
+                    <div className="flex gap-4">
+                        <a href="https://www.facebook.com/share/1CQp7UT8FD/" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center hover:bg-primary-orange transition-colors"><Facebook size={16} /></a>
+                        <a href="https://www.instagram.com/aartique_designs?igsh=bXVkcGNnZTV5ZHJx" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center hover:bg-primary-orange transition-colors"><Instagram size={16} /></a>
+                    </div>
+                </div>
+                <div>
+                  <h4 className="font-heading font-bold text-lg mb-6 text-primary-orange">Company</h4>
+                  <ul className="space-y-3 text-sm text-gray-300">
+                    <li><a href="#about" className="hover:text-white transition-colors">About Us</a></li>
+                    <li><a href="https://forms.gle/Q79q26V1AV89bMU28" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Careers</a></li>
+                    <li><a href="#projects" className="hover:text-white transition-colors">Projects</a></li>
+                    <li><a href="#contact" className="hover:text-white transition-colors">Contact</a></li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="font-heading font-bold text-lg mb-6 text-primary-orange">Services</h4>
+                  <ul className="space-y-3 text-sm text-gray-300">
+                    <li><a href="#services" className="hover:text-white transition-colors">Workplace Design</a></li>
+                    <li><a href="#services" className="hover:text-white transition-colors">Retail Interiors</a></li>
+                    <li><a href="#services" className="hover:text-white transition-colors">Institutes</a></li>
+                    <li><a href="#contact" className="hover:text-white transition-colors">Consultation</a></li>
+                  </ul>
+                </div>
+                 <div>
+                  <h4 className="font-heading font-bold text-lg mb-6 text-primary-orange">Stay Updated</h4>
+                  <p className="text-gray-400 text-sm mb-4">Get the latest design trends right in your inbox.</p>
+                  <div className="flex"><input type="email" placeholder="Your email" className="bg-gray-800 text-white px-4 py-2 text-sm w-full focus:outline-none" /><button className="bg-primary-orange px-4 py-2 font-bold hover:bg-orange-600 transition-colors">GO</button></div>
+                </div>
+              </div>
+              <div className="border-t border-gray-700 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500">
+                <p>&copy; {new Date().getFullYear()} Aartique Designs. All rights reserved.</p>
+                <div className="flex items-center gap-4 mt-2 md:mt-0"><p>Website created by <span className="text-white font-bold">BRAND SPARK</span></p><a href="tel:7380311858" className="bg-primary-orange text-white text-[10px] px-2 py-1 rounded font-bold hover:bg-white hover:text-primary-orange transition-colors">Contact: 7380311858</a></div>
+              </div>
+            </div>
+          </footer>
+        );
+      };
 
-            <button type="submit" class="bg-[var(--primary)] text-white px-4 py-2 rounded font-bold">Send Message</button>
-            <div id="contact-msg" class="text-sm mt-2"></div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </section>
+      const App = () => {
+        return (
+          <div className="min-h-screen bg-white text-dark-gray font-sans overflow-x-hidden selection:bg-primary-orange selection:text-white">
+            <Header /><main><Hero /><Features /><Offers /><WhyCubico /><Gallery /><Stats /><Projects /><Timeline /><StudiosMap /><FAQ /><Founder /></main><Footer />
+          </div>
+        );
+      };
 
-  <!-- FOOTER -->
-  <footer class="bg-[var(--dark)] text-white py-8 mt-auto">
-    <div class="container mx-auto px-4 md:px-8 grid grid-cols-1 md:grid-cols-3 gap-6">
-      <div>
-        <div class="flex items-center gap-3 mb-2">
-          <svg class="w-10 h-10" viewBox="0 0 100 100" fill="none"><path d="M50 10 L85 90 H15 L50 10Z" stroke="var(--primary)" stroke-width="8" stroke-linejoin="round"/></svg>
-          <div>
-            <div class="font-heading font-bold">Aartique</div>
-            <div class="text-xs text-gray-300">Designs</div>
-          </div>
-        </div>
-        <p class="text-sm text-gray-300">Transforming spaces, creating dreams.</p>
-      </div>
+      const root = createRoot(document.getElementById('root'));
+      root.render(<App />);
+    </script>
+  </body>
 
-      <div>
-        <h5 class="font-bold mb-2">Contact</h5>
-        <p class="text-sm text-gray-300">aartiqueinteriors@gmail.com</p>
-        <p class="text-sm text-gray-300 mt-1">+91 72070 58862</p>
-      </div>
-
-      <div>
-        <h5 class="font-bold mb-2">Quick Links</h5>
-        <ul class="text-sm text-gray-300 space-y-1">
-          <li><a href="#services">Services</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="text-center text-xs text-gray-400 mt-6">© <span id="year"></span> Aartique Designs — All rights reserved.</div>
-  </footer>
-
-</div>
-
-<!-- SCRIPTS: minimal JS for form and interaction -->
-<script>
-  // set year
-  document.getElementById('year').textContent = new Date().getFullYear();
-
-  // Mobile menu open/close
-  const mobileOpen = document.getElementById('mobile-open');
-  const mobileClose = document.getElementById('mobile-close');
-  const mobileMenu = document.getElementById('mobile-menu');
-  if(mobileOpen) mobileOpen.addEventListener('click',()=> mobileMenu.classList.remove('hidden'));
-  if(mobileClose) mobileClose.addEventListener('click',()=> mobileMenu.classList.add('hidden'));
-  // close mobile when clicking overlay
-  mobileMenu && mobileMenu.addEventListener('click',(e)=>{ if(e.target === mobileMenu) mobileMenu.classList.add('hidden') });
-
-  // Thumbnails -> main image
-  document.querySelectorAll('.thumb').forEach(t=>{
-    t.addEventListener('click',e=>{
-      const src = e.currentTarget.getAttribute('data-src') || e.currentTarget.src;
-      document.getElementById('main-img').src = src;
-    });
-  });
-
-  // simple lead form submission via fetch to web3forms (same access_key used earlier)
-  const leadForm = document.getElementById('lead-form');
-  const formMsg = document.getElementById('form-msg');
-  if(leadForm){
-    leadForm.addEventListener('submit', async (e)=>{
-      e.preventDefault();
-      formMsg.textContent = 'Sending...';
-      const fd = new FormData(leadForm);
-      fd.append('access_key','4c8b8b21-4272-452a-a6af-32285887df7e');
-      try{
-        const res = await fetch('https://api.web3forms.com/submit', { method:'POST', body: fd });
-        const data = await res.json();
-        if(data.success){ formMsg.textContent = 'Thanks! We will contact you soon.'; leadForm.reset(); }
-        else { formMsg.textContent = 'Error sending. Please try again.'; }
-      }catch(err){
-        formMsg.textContent = 'Network error. Try again later.';
-      }
-    });
-  }
-
-  // contact form (separate)
-  const contactForm = document.getElementById('contact-form');
-  const contactMsg = document.getElementById('contact-msg');
-  if(contactForm){
-    contactForm.addEventListener('submit', async (e)=>{
-      e.preventDefault();
-      contactMsg.textContent = 'Sending...';
-      const fd = new FormData(contactForm);
-      // use same endpoint or your preferred endpoint
-      fd.append('access_key','4c8b8b21-4272-452a-a6af-32285887df7e');
-      try{
-        const res = await fetch('https://api.web3forms.com/submit', { method:'POST', body: fd });
-        const data = await res.json();
-        if(data.success){ contactMsg.textContent = 'Message sent. Thank you!'; contactForm.reset(); }
-        else { contactMsg.textContent = 'Error sending. Please try again.'; }
-      }catch(err){
-        contactMsg.textContent = 'Network error. Try later.';
-      }
-    });
-  }
-
-  // graceful fallback if some images missing: replace broken images with placeholder
-  document.querySelectorAll('img').forEach(img=>{
-    img.addEventListener('error', ()=> img.src='https://via.placeholder.com/1200x800?text=Image+Not+Found');
-  });
-
-  // optional: smooth scroll for anchor links
-  document.querySelectorAll('a[href^="#"]').forEach(a=>{
-    a.addEventListener('click', function(e){
-      const target = this.getAttribute('href');
-      if(target.length>1){
-        e.preventDefault();
-        const el = document.querySelector(target);
-        if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
-        // close mobile after click
-        if(!mobileMenu.classList.contains('hidden')) mobileMenu.classList.add('hidden');
-      }
-    });
-  });
-</script>
-
-</body>
 </html>
