@@ -5,16 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Aartique Design | Premium Commercial Interiors</title>
     
-    <script>
-        window.addEventListener('error', function(event) {
-            var errorMsg = event.message || "Unknown Error";
-            var errorLine = event.lineno || 0;
-            document.getElementById('loading-text').innerHTML = 
-                '<span style="color:red; font-weight:bold;">Error: ' + errorMsg + ' (Line: ' + errorLine + ')</span><br><br>Please check console or try refreshing.';
-            document.getElementById('spinner').style.display = 'none';
-        });
-    </script>
-
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
@@ -40,21 +30,30 @@
       }
     </script>
 
-    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400;600;700;800&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
     <style>
+      /* Basic CSS */
       body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
       html { scroll-behavior: smooth; }
       
-      .hover-scale { transition: transform 0.3s ease; }
-      .hover-scale:hover { transform: scale(1.05); }
+      /* Animations defined in CSS to avoid external library issues */
       .fade-in { animation: fadeIn 1s ease-out; }
       @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+      
+      .hover-scale { transition: transform 0.3s ease; }
+      .hover-scale:hover { transform: scale(1.05); }
+
       @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
       .animate-marquee { animation: marquee 40s linear infinite; }
+      
+      /* Flip Card */
       .flip-card { perspective: 1000px; }
       .flip-card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; }
       .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
@@ -64,19 +63,11 @@
 </head>
 <body>
     
-    <div id="root">
-        <div style="height: 100vh; display: flex; align-items: center; justify-content: center; background: white; flex-direction: column;">
-            <div id="spinner" style="width: 50px; height: 50px; border: 5px solid #E67E22; border-top-color: transparent; border-radius: 50%; animation: spin 1s linear infinite;"></div>
-            <p id="loading-text" style="margin-top: 20px; font-family: sans-serif; color: #4F4F4F;">Loading Website...</p>
-        </div>
-        <style>@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }</style>
-    </div>
+    <div id="root"></div>
 
-    <script type="text/babel" data-presets="react">
-      const { useState, useEffect } = React;
-      const { createRoot } = ReactDOM;
-
-      // --- ICONS ---
+    <script type="text/babel">
+      
+      // --- ICONS (SVG Direct) ---
       const IconMail = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>;
       const IconMenu = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>;
       const IconCheck = () => <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5"/></svg>;
@@ -121,8 +112,8 @@
       };
 
       const Header = () => {
-        const [scrolled, setScrolled] = useState(false);
-        useEffect(() => {
+        const [scrolled, setScrolled] = React.useState(false);
+        React.useEffect(() => {
           const handleScroll = () => setScrolled(window.scrollY > 20);
           window.addEventListener('scroll', handleScroll);
           return () => window.removeEventListener('scroll', handleScroll);
@@ -144,10 +135,10 @@
       };
 
       const Hero = () => {
-        const [whatsappEnabled, setWhatsappEnabled] = useState(false);
-        const [isSubmitting, setIsSubmitting] = useState(false);
-        const [result, setResult] = useState(null); 
-        const [formData, setFormData] = useState({ name: '', email: '', phone: '', city: '', budget: '', area: '', requirements: '' });
+        const [whatsappEnabled, setWhatsappEnabled] = React.useState(false);
+        const [isSubmitting, setIsSubmitting] = React.useState(false);
+        const [result, setResult] = React.useState(null); 
+        const [formData, setFormData] = React.useState({ name: '', email: '', phone: '', city: '', budget: '', area: '', requirements: '' });
         
         const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
@@ -318,7 +309,7 @@
       };
 
       const Gallery = () => {
-        const [activeCategory, setActiveCategory] = useState('Workplace');
+        const [activeCategory, setActiveCategory] = React.useState('Workplace');
         const galleryCategories = ['Workplace', 'Retail', 'Institutes', 'Hospitality'];
         const galleryImages = { 'Workplace': 'workpace design.jpg', 'Retail': 'retail.jpg', 'Institutes': 'institute.jpg', 'Hospitality': 'hospitility.jpg' };
         const handleNext = () => setActiveCategory(galleryCategories[(galleryCategories.indexOf(activeCategory) + 1) % galleryCategories.length]);
@@ -380,7 +371,7 @@
         ];
         
         const ProjectCard = ({ project }) => {
-          const [isFlipped, setIsFlipped] = useState(false);
+          const [isFlipped, setIsFlipped] = React.useState(false);
           return (
             <div className={`relative h-80 w-full cursor-pointer flip-card ${isFlipped ? 'flipped' : ''}`} onClick={() => setIsFlipped(!isFlipped)}>
               <div className="flip-card-inner">
@@ -502,7 +493,7 @@
 
       const FAQ = () => {
         const faqData = [ { id: 1, question: "What is the typical timeline for an office project?", answer: "Our standard delivery time is 45 days from the design finalization date. This includes production, civil work, and installation." }, { id: 2, question: "Do you provide warranty on the furniture?", answer: "Yes, we provide a 5-year warranty on all modular furniture and a 1-year service warranty on workmanship." }, { id: 3, question: "Is the design consultation free?", answer: "Absolutely! The initial design consultation and budget estimation are completely free of charge." }, { id: 4, question: "Can I customize the furniture designs?", answer: "Yes, while we have a vast catalog, we specialize in bespoke designs tailored to your brand guidelines and space requirements." } ];
-        const [openIndex, setOpenIndex] = useState(0);
+        const [openIndex, setOpenIndex] = React.useState(0);
         const toggleFAQ = (index) => setOpenIndex(openIndex === index ? null : index);
 
         return (
@@ -619,13 +610,13 @@
         );
       };
 
-      try {
+      // 5. WAIT FOR PAGE LOAD (Crucial Fix)
+      window.addEventListener('load', () => {
         const container = document.getElementById('root');
-        const root = createRoot(container);
+        const root = ReactDOM.createRoot(container);
         root.render(<App />);
-      } catch (err) {
-        throw new Error(err.message);
-      }
+      });
+
     </script>
 </body>
 </html>
