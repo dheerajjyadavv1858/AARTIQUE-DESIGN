@@ -12,10 +12,10 @@
           extend: {
             colors: {
               'primary-orange': '#E67E22',
-              'dark-gray': '#4F4F4F',
-              'light-gray': '#F1F1F1',
-              'lighter-gray': '#E9E9E9',
-              'border-gray': '#e0e0e0',
+              'dark-gray': '#1F2937',
+              'light-gray': '#F9FAFB',
+              'lighter-gray': '#F3F4F6',
+              'border-gray': '#E5E7EB',
             },
             fontFamily: {
               sans: ['Open Sans', 'sans-serif'],
@@ -28,47 +28,44 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400;600;700;800&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
 
     <style>
-        body { -webkit-font-smoothing: antialiased; font-family: 'Open Sans', sans-serif; overflow-x: hidden; }
-        h1, h2, h3, h4, h5 { font-family: 'Montserrat', sans-serif; }
+        body { font-family: 'Open Sans', sans-serif; overflow-x: hidden; }
+        h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; }
         html { scroll-behavior: smooth; }
 
-        /* --- Animations --- */
+        /* Animation Classes */
         .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
         .reveal.active { opacity: 1; transform: translateY(0); }
         
-        .hover-scale { transition: transform 0.3s ease; }
-        .hover-scale:hover { transform: scale(1.03); }
+        .hover-zoom { overflow: hidden; }
+        .hover-zoom img { transition: transform 0.5s ease; }
+        .hover-zoom:hover img { transform: scale(1.05); }
 
         /* Marquee */
         @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-        .animate-marquee { animation: marquee 30s linear infinite; display: flex; width: max-content; }
-        
+        .animate-marquee { animation: marquee 25s linear infinite; display: flex; width: max-content; }
+        .animate-marquee:hover { animation-play-state: paused; }
+
         /* Flip Card */
-        .flip-card { perspective: 1000px; height: 320px; }
+        .flip-card { perspective: 1000px; height: 350px; cursor: pointer; }
         .flip-card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; }
         .flip-card:hover .flip-card-inner { transform: rotateY(180deg); }
-        .flip-card-front, .flip-card-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; border-radius: 0.25rem; overflow: hidden; }
-        .flip-card-back { background-color: white; transform: rotateY(180deg); display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; border-top: 4px solid #E67E22; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
-        
-        /* FAQ Accordion */
-        details > summary { list-style: none; cursor: pointer; }
-        details > summary::-webkit-details-marker { display: none; }
-        details[open] summary ~ * { animation: sweep .5s ease-in-out; }
-        @keyframes sweep { 0% {opacity: 0; margin-top: -10px} 100% {opacity: 1; margin-top: 0px} }
+        .flip-card-front, .flip-card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 0.5rem; overflow: hidden; }
+        .flip-card-front { background-color: #f3f4f6; }
+        .flip-card-back { background-color: white; transform: rotateY(180deg); display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; border: 1px solid #e5e7eb; border-top: 4px solid #E67E22; text-align: center; }
     </style>
 </head>
-<body class="text-dark-gray bg-white">
+<body class="bg-white text-dark-gray">
 
-    <header class="fixed top-0 w-full bg-white z-50 shadow-sm py-4 transition-all" id="navbar">
+    <header class="fixed top-0 w-full bg-white z-50 shadow-sm py-4 transition-all">
         <div class="absolute top-0 left-0 right-0 h-1 bg-primary-orange"></div>
         <div class="container mx-auto px-4 md:px-8 flex justify-between items-center">
             <div class="flex items-center gap-3">
                 <svg viewBox="0 0 100 100" class="w-10 h-10" fill="none" stroke="#E67E22" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"><path d="M50 10 L85 90 H15 L50 10Z" /><path d="M32 65 H68" /></svg>
                 <div class="flex flex-col -space-y-1">
-                    <span class="font-bold text-xl tracking-wider uppercase text-dark-gray">Aartique</span>
+                    <span class="font-bold text-xl tracking-wider uppercase">Aartique</span>
                     <span class="text-[10px] font-bold tracking-[0.3em] uppercase text-gray-500">Designs</span>
                 </div>
             </div>
@@ -76,39 +73,32 @@
                 <svg class="w-4 h-4 text-primary-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
                 <span>aartiqueinteriors@gmail.com</span>
             </a>
-            <button class="md:hidden text-dark-gray" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
-            </button>
-        </div>
-        <div id="mobile-menu" class="hidden bg-white border-t border-gray-100 p-4 md:hidden">
-            <a href="#projects" class="block py-2 text-sm font-bold">Projects</a>
-            <a href="#services" class="block py-2 text-sm font-bold">Services</a>
-            <a href="#contact" class="block py-2 text-sm font-bold text-primary-orange">Contact Us</a>
         </div>
     </header>
 
-    <section class="pt-32 pb-20 bg-light-gray/30 overflow-hidden" id="contact">
+    <section class="pt-32 pb-20 bg-gray-50" id="contact">
         <div class="container mx-auto px-4 md:px-8 flex flex-col lg:flex-row gap-12 items-start">
             <div class="w-full lg:w-2/3 pt-4 reveal">
                 <h1 class="font-extrabold text-5xl md:text-7xl text-dark-gray leading-tight mb-6">Fast, Premium <br /><span class="text-primary-orange">Interiors</span></h1>
                 <p class="text-lg text-gray-600 mb-8 max-w-lg leading-relaxed">Hassle-free interiors for modern businesses. We specialize in Workplace, Retail, and Institutes with tech-driven delivery.</p>
-                <div class="w-full h-[450px] rounded-sm shadow-lg overflow-hidden">
-                    <img src="front.jpg" alt="Interior" class="w-full h-full object-cover hover-scale">
+                <div class="w-full h-[450px] rounded-lg shadow-xl overflow-hidden hover-zoom">
+                    <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1200&auto=format&fit=crop" alt="Luxury Office" class="w-full h-full object-cover">
                 </div>
             </div>
 
             <div class="w-full lg:w-1/3 lg:sticky lg:top-28 z-30 reveal">
-                <div class="bg-white p-8 rounded-sm shadow-card border-t-4 border-primary-orange">
-                    <h2 class="font-bold text-2xl mb-6 text-dark-gray">Start Your Project</h2>
+                <div class="bg-white p-8 rounded-lg shadow-2xl border-t-4 border-primary-orange">
+                    <h2 class="font-bold text-2xl mb-6">Start Your Project</h2>
                     
                     <div id="success-message" class="hidden text-center py-10">
                         <div class="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></div>
-                        <h3 class="text-xl font-bold text-dark-gray">Message Sent!</h3>
+                        <h3 class="text-xl font-bold">Message Sent!</h3>
                         <p class="text-gray-500 mt-2 text-sm">We will contact you shortly.</p>
                     </div>
 
                     <form id="contactForm" class="space-y-5">
                         <input type="hidden" name="access_key" value="4c8b8b21-4272-452a-a6af-32285887df7e">
+                        
                         <input type="text" name="name" placeholder="Name*" required class="w-full border-b border-gray-300 py-2 focus:outline-none focus:border-primary-orange bg-transparent text-sm">
                         <div class="grid grid-cols-2 gap-4">
                             <input type="email" name="email" placeholder="Email*" required class="w-full border-b border-gray-300 py-2 focus:outline-none focus:border-primary-orange bg-transparent text-sm">
@@ -120,10 +110,12 @@
                         </div>
                         <select name="area" class="w-full border-b border-gray-300 py-2 text-sm text-gray-500 bg-transparent focus:outline-none focus:border-primary-orange"><option value="">Project Area (Sq.ft)*</option><option value="<1000">< 1000</option><option value="1000-5000">1000 - 5000</option><option value="5000+">5000+</option></select>
                         <textarea name="requirements" rows="3" placeholder="Tell us about your requirements" class="w-full border-b border-gray-300 py-2 focus:outline-none focus:border-primary-orange bg-transparent text-sm resize-none"></textarea>
+                        
                         <div class="flex items-start gap-2 mt-2">
                             <input type="checkbox" required id="terms" class="mt-1 accent-primary-orange">
                             <label for="terms" class="text-[10px] text-gray-400">I agree to the Terms & Privacy Policy.</label>
                         </div>
+
                         <button type="submit" id="submitBtn" class="w-full bg-primary-orange text-white py-3 font-bold uppercase tracking-wider text-sm hover:bg-orange-600 transition-colors shadow-lg">Get Free Consultation</button>
                     </form>
                 </div>
@@ -145,56 +137,56 @@
     <section class="py-20 bg-white">
         <div class="container mx-auto px-4 md:px-8">
             <div class="text-center mb-16 reveal">
-                <h2 class="font-bold text-3xl md:text-5xl text-dark-gray">What We <span class="text-primary-orange">Offer</span></h2>
+                <h2 class="font-bold text-3xl md:text-5xl">What We <span class="text-primary-orange">Offer</span></h2>
                 <div class="w-20 h-1 bg-primary-orange mx-auto mt-4"></div>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="p-8 border border-gray-100 rounded shadow-card hover-scale bg-white reveal">
-                    <div class="w-14 h-14 bg-light-gray rounded-full flex items-center justify-center text-dark-gray mb-6"><svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><line x1="3" x2="21" y1="9" y2="9"/><line x1="9" x2="9" y1="21" y2="9"/></svg></div>
+                <div class="p-8 border border-gray-100 rounded-lg shadow-sm hover:shadow-xl transition-all duration-300 bg-white reveal">
+                    <div class="w-14 h-14 bg-gray-100 rounded-full flex items-center justify-center text-primary-orange mb-6"><svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><line x1="3" x2="21" y1="9" y2="9"/><line x1="9" x2="9" y1="21" y2="9"/></svg></div>
                     <h3 class="font-bold text-xl mb-3">Space Planning</h3>
-                    <p class="text-gray-500 text-sm">Strategic layouts designed for optimal workflow and growth.</p>
+                    <p class="text-gray-500 text-sm leading-relaxed">Strategic layouts designed for optimal workflow, collaboration, and future growth.</p>
                 </div>
-                <div class="p-8 border border-gray-100 rounded shadow-card hover-scale bg-white reveal">
-                    <div class="w-14 h-14 bg-light-gray rounded-full flex items-center justify-center text-dark-gray mb-6"><svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="13.5" cy="6.5" r=".5"/><circle cx="17.5" cy="10.5" r=".5"/><circle cx="8.5" cy="7.5" r=".5"/><circle cx="6.5" cy="12.5" r=".5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg></div>
+                <div class="p-8 border border-gray-100 rounded-lg shadow-sm hover:shadow-xl transition-all duration-300 bg-white reveal">
+                    <div class="w-14 h-14 bg-gray-100 rounded-full flex items-center justify-center text-primary-orange mb-6"><svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="13.5" cy="6.5" r=".5"/><circle cx="17.5" cy="10.5" r=".5"/><circle cx="8.5" cy="7.5" r=".5"/><circle cx="6.5" cy="12.5" r=".5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg></div>
                     <h3 class="font-bold text-xl mb-3">Bespoke Designs</h3>
-                    <p class="text-gray-500 text-sm">Unique aesthetics tailored to your brand identity.</p>
+                    <p class="text-gray-500 text-sm leading-relaxed">Unique aesthetics tailored to your brand identity and culture.</p>
                 </div>
-                <div class="p-8 border border-gray-100 rounded shadow-card hover-scale bg-white reveal">
-                    <div class="w-14 h-14 bg-light-gray rounded-full flex items-center justify-center text-dark-gray mb-6"><svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.29 8.83 12 13.71 20.71 8.83"/><line x1="12" x2="12" y1="22" y2="13.71"/></svg></div>
+                <div class="p-8 border border-gray-100 rounded-lg shadow-sm hover:shadow-xl transition-all duration-300 bg-white reveal">
+                    <div class="w-14 h-14 bg-gray-100 rounded-full flex items-center justify-center text-primary-orange mb-6"><svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.29 8.83 12 13.71 20.71 8.83"/><line x1="12" x2="12" y1="22" y2="13.71"/></svg></div>
                     <h3 class="font-bold text-xl mb-3">Modular Furniture</h3>
-                    <p class="text-gray-500 text-sm">Ergonomic workstations and adaptable meeting pods.</p>
+                    <p class="text-gray-500 text-sm leading-relaxed">Ergonomic workstations and adaptable meeting pods for modern teams.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="bg-light-gray py-20" id="about">
+    <section class="bg-gray-50 py-24" id="about">
         <div class="container mx-auto px-4 md:px-8 space-y-24">
-            <div class="flex flex-col md:flex-row items-center gap-10 reveal">
-                <div class="w-full md:w-1/2 relative">
-                    <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1200&auto=format&fit=crop" class="w-full h-[400px] object-cover rounded-sm shadow-lg">
+            <div class="flex flex-col md:flex-row items-center gap-12 reveal">
+                <div class="w-full md:w-1/2 relative hover-zoom">
+                    <img src="https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=1200&auto=format&fit=crop" alt="Tech Design" class="w-full h-[400px] object-cover rounded-lg shadow-lg">
                     <div class="absolute -bottom-8 -right-4 md:-right-10 bg-white p-6 shadow-xl border-l-4 border-primary-orange max-w-xs">
                         <svg class="w-8 h-8 text-primary-orange mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M15 2v2"/><path d="M15 20v2"/><path d="M2 15h2"/><path d="M2 9h2"/><path d="M20 15h2"/><path d="M20 9h2"/><path d="M9 2v2"/><path d="M9 20v2"/></svg>
                         <h3 class="font-bold text-xl mb-2">Tech Driven</h3>
-                        <p class="text-sm text-gray-500">We utilize cutting-edge technology for precision planning.</p>
+                        <p class="text-sm text-gray-500">Precision planning & faster execution.</p>
                     </div>
                 </div>
                 <div class="w-full md:w-1/2 md:pl-12">
-                    <h2 class="font-bold text-4xl mb-6 text-dark-gray">Why Choose <span class="text-primary-orange">Aartique?</span></h2>
+                    <h2 class="font-bold text-4xl mb-6">Why Choose <span class="text-primary-orange">Aartique?</span></h2>
                     <p class="text-gray-600 leading-loose text-lg">At Aartique Design, we blend creativity with technology. Our premium commercial interiors are designed to elevate your brand presence while ensuring functionality. We deliver quality, speed, and aesthetics.</p>
                 </div>
             </div>
-            <div class="flex flex-col md:flex-row-reverse items-center gap-10 reveal">
-                <div class="w-full md:w-1/2 relative">
-                    <img src="premium and fast.jpg" class="w-full h-[400px] object-cover rounded-sm shadow-lg">
+            <div class="flex flex-col md:flex-row-reverse items-center gap-12 reveal">
+                <div class="w-full md:w-1/2 relative hover-zoom">
+                    <img src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=1200&auto=format&fit=crop" alt="Premium Quality" class="w-full h-[400px] object-cover rounded-lg shadow-lg">
                     <div class="absolute -bottom-8 -left-4 md:-left-10 bg-white p-6 shadow-xl border-r-4 border-primary-orange max-w-xs text-right">
                         <div class="flex justify-end mb-3"><svg class="w-8 h-8 text-primary-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg></div>
                         <h3 class="font-bold text-xl mb-2">Premium & Fast</h3>
-                        <p class="text-sm text-gray-500">Experience hassle-free delivery tailored to business needs.</p>
+                        <p class="text-sm text-gray-500">Experience hassle-free delivery.</p>
                     </div>
                 </div>
                 <div class="w-full md:w-1/2 md:pr-12 text-right md:text-left">
-                    <h2 class="font-bold text-4xl mb-6 text-dark-gray">Expertise in <span class="text-primary-orange">Retail & Workplace</span></h2>
+                    <h2 class="font-bold text-4xl mb-6">Expertise in <span class="text-primary-orange">Retail & Workplace</span></h2>
                     <p class="text-gray-600 leading-loose text-lg">With 4+ years of experience, we master the art of Workplace Designing, Retail Spaces, and Institutes. Our approach is client-centric and result-oriented.</p>
                 </div>
             </div>
@@ -206,15 +198,15 @@
             <div class="flex flex-col lg:flex-row gap-8 min-h-[500px]">
                 <div class="w-full lg:w-1/4 flex flex-col justify-center space-y-2 reveal">
                     <h3 class="text-2xl font-bold mb-6 px-6">Our Expertise</h3>
-                    <div class="gallery-btn cursor-pointer px-6 py-4 text-lg font-bold border-l-4 border-primary-orange text-primary-orange bg-light-gray transition-all" onclick="changeGallery(0)">Workplace</div>
-                    <div class="gallery-btn cursor-pointer px-6 py-4 text-lg font-bold border-l-4 border-transparent text-gray-400 hover:text-dark-gray transition-all" onclick="changeGallery(1)">Retail</div>
-                    <div class="gallery-btn cursor-pointer px-6 py-4 text-lg font-bold border-l-4 border-transparent text-gray-400 hover:text-dark-gray transition-all" onclick="changeGallery(2)">Institutes</div>
-                    <div class="gallery-btn cursor-pointer px-6 py-4 text-lg font-bold border-l-4 border-transparent text-gray-400 hover:text-dark-gray transition-all" onclick="changeGallery(3)">Hospitality</div>
+                    <button class="gallery-btn w-full text-left px-6 py-4 text-lg font-bold border-l-4 border-primary-orange text-primary-orange bg-gray-50 transition-all" onclick="changeGallery(0)">Workplace</button>
+                    <button class="gallery-btn w-full text-left px-6 py-4 text-lg font-bold border-l-4 border-transparent text-gray-400 hover:text-dark-gray transition-all" onclick="changeGallery(1)">Retail</button>
+                    <button class="gallery-btn w-full text-left px-6 py-4 text-lg font-bold border-l-4 border-transparent text-gray-400 hover:text-dark-gray transition-all" onclick="changeGallery(2)">Institutes</button>
+                    <button class="gallery-btn w-full text-left px-6 py-4 text-lg font-bold border-l-4 border-transparent text-gray-400 hover:text-dark-gray transition-all" onclick="changeGallery(3)">Hospitality</button>
                 </div>
                 <div class="w-full lg:w-3/4 relative reveal">
-                    <div class="relative w-full h-[400px] md:h-[500px] overflow-hidden rounded-sm shadow-xl">
-                        <img id="gallery-img" src="workpace design.jpg" class="w-full h-full object-cover transition-opacity duration-500">
-                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-8">
+                    <div class="relative w-full h-[400px] md:h-[500px] overflow-hidden rounded-lg shadow-2xl">
+                        <img id="gallery-img" src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=1200&auto=format&fit=crop" class="w-full h-full object-cover transition-opacity duration-500">
+                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-10">
                             <h3 id="gallery-title" class="text-white font-bold text-3xl">Workplace Designing</h3>
                         </div>
                     </div>
@@ -223,104 +215,95 @@
         </div>
     </section>
 
-    <section class="py-24 bg-dark-gray text-white relative overflow-hidden">
-        <div class="absolute top-0 right-0 w-64 h-64 bg-primary-orange opacity-10 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2"></div>
-        <div class="container mx-auto px-4 md:px-8 text-center relative z-10 reveal">
-            <h2 class="font-bold text-4xl mb-16">Powered by Excellence</h2>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
-                <div><span class="font-extrabold text-6xl text-primary-orange block mb-2">4+</span><span class="text-gray-300 font-semibold uppercase text-sm">Years Experience</span></div>
-                <div><span class="font-extrabold text-6xl text-primary-orange block mb-2">50k+</span><span class="text-gray-300 font-semibold uppercase text-sm">Sq. Ft. Delivered</span></div>
-                <div><span class="font-extrabold text-6xl text-primary-orange block mb-2">100+</span><span class="text-gray-300 font-semibold uppercase text-sm">Happy Clients</span></div>
-                <div><span class="font-extrabold text-6xl text-primary-orange block mb-2">12</span><span class="text-gray-300 font-semibold uppercase text-sm">Design Awards</span></div>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-20 bg-light-gray" id="projects">
+    <section class="py-24 bg-gray-100" id="projects">
         <div class="container mx-auto px-4 md:px-8">
             <div class="flex justify-between items-end mb-12 reveal">
-                <h2 class="font-bold text-4xl text-dark-gray">Completed <span class="text-primary-orange">Projects</span></h2>
-                <span class="hidden md:block text-primary-orange font-bold border-b-2 border-primary-orange pb-1">View All</span>
+                <h2 class="font-bold text-4xl">Completed <span class="text-primary-orange">Projects</span></h2>
+                <span class="hidden md:block text-primary-orange font-bold border-b-2 border-primary-orange pb-1 cursor-pointer">View All</span>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
                 <div class="flip-card reveal">
                     <div class="flip-card-inner">
-                        <div class="flip-card-front bg-gray-200">
-                            <img src="project1.jpg" class="w-full h-full object-cover">
-                            <div class="absolute inset-0 bg-black/30 flex items-center justify-center"><h4 class="text-white font-bold text-xl">Real Estate Office</h4></div>
+                        <div class="flip-card-front">
+                            <img src="https://images.unsplash.com/photo-1504384308090-c54be3855833?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-black/40 flex items-center justify-center"><h4 class="text-white font-bold text-xl border-2 border-white px-4 py-2">Real Estate Office</h4></div>
                         </div>
                         <div class="flip-card-back">
                             <h3 class="text-primary-orange font-bold text-xl mb-2">Real Estate Office</h3>
-                            <h4 class="text-dark-gray font-bold text-sm uppercase tracking-widest mb-4">Goyal & Co.</h4>
+                            <h4 class="text-dark-gray font-bold text-xs uppercase tracking-widest mb-4">Client: Goyal & Co.</h4>
                             <p class="text-gray-600 text-sm">Crafting a workspace that embodies commitment to excellence.</p>
                         </div>
                     </div>
                 </div>
+
                 <div class="flip-card reveal">
                     <div class="flip-card-inner">
-                        <div class="flip-card-front bg-gray-200">
-                            <img src="project2.jpg" class="w-full h-full object-cover">
-                            <div class="absolute inset-0 bg-black/30 flex items-center justify-center"><h4 class="text-white font-bold text-xl">Tropical Design</h4></div>
+                        <div class="flip-card-front">
+                            <img src="https://images.unsplash.com/photo-1502005229766-31bf22168b06?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-black/40 flex items-center justify-center"><h4 class="text-white font-bold text-xl border-2 border-white px-4 py-2">Tropical Design</h4></div>
                         </div>
                         <div class="flip-card-back">
                             <h3 class="text-primary-orange font-bold text-xl mb-2">Tropical Design</h3>
-                            <h4 class="text-dark-gray font-bold text-sm uppercase tracking-widest mb-4">Media Monks</h4>
+                            <h4 class="text-dark-gray font-bold text-xs uppercase tracking-widest mb-4">Client: Media Monks</h4>
                             <p class="text-gray-600 text-sm">A celebration of nature's bounty with lush foliage.</p>
                         </div>
                     </div>
                 </div>
+
                 <div class="flip-card reveal">
                     <div class="flip-card-inner">
-                        <div class="flip-card-front bg-gray-200">
-                            <img src="project3.jpg" class="w-full h-full object-cover">
-                            <div class="absolute inset-0 bg-black/30 flex items-center justify-center"><h4 class="text-white font-bold text-xl">Private Office</h4></div>
+                        <div class="flip-card-front">
+                            <img src="https://images.unsplash.com/photo-1600508774662-41942800303a?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-black/40 flex items-center justify-center"><h4 class="text-white font-bold text-xl border-2 border-white px-4 py-2">Private Office</h4></div>
                         </div>
                         <div class="flip-card-back">
                             <h3 class="text-primary-orange font-bold text-xl mb-2">Private Office</h3>
-                            <h4 class="text-dark-gray font-bold text-sm uppercase tracking-widest mb-4">Goyal's Office</h4>
+                            <h4 class="text-dark-gray font-bold text-xs uppercase tracking-widest mb-4">Client: Nextra</h4>
                             <p class="text-gray-600 text-sm">A harmonious fusion of creativity for three individuals.</p>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
 
     <section class="py-24 bg-white overflow-hidden">
         <div class="container mx-auto px-4 md:px-8 mb-16 reveal">
-            <h2 class="font-bold text-4xl text-dark-gray text-center">Aartique <span class="text-primary-orange">Journey</span></h2>
+            <h2 class="font-bold text-4xl text-center">Aartique <span class="text-primary-orange">Journey</span></h2>
             <p class="text-center text-gray-500 mt-4">From concept to completion, we handle every step.</p>
         </div>
         <div class="flex animate-marquee gap-8 px-4">
-            <div class="w-[350px] flex-shrink-0 p-6 border border-gray-100 rounded hover:shadow-lg transition-shadow">
-                <span class="text-5xl font-extrabold text-gray-200">01</span>
-                <h3 class="text-xl font-bold text-dark-gray mt-2">Strategy & Design</h3>
-                <p class="text-gray-500 text-sm mt-2">Comprehensive design blueprint including 3D renders.</p>
+            <div class="w-[350px] flex-shrink-0 p-8 border border-gray-100 rounded-lg hover:shadow-xl transition-all bg-white">
+                <span class="text-6xl font-extrabold text-gray-100 block mb-2">01</span>
+                <h3 class="text-xl font-bold mb-2">Strategy & Design</h3>
+                <p class="text-gray-500 text-sm">Comprehensive design blueprint including 3D renders.</p>
             </div>
-            <div class="w-[350px] flex-shrink-0 p-6 border border-gray-100 rounded hover:shadow-lg transition-shadow">
-                <span class="text-5xl font-extrabold text-gray-200">02</span>
-                <h3 class="text-xl font-bold text-dark-gray mt-2">Design Finalization</h3>
-                <p class="text-gray-500 text-sm mt-2">Material selection and final sign-offs.</p>
+            <div class="w-[350px] flex-shrink-0 p-8 border border-gray-100 rounded-lg hover:shadow-xl transition-all bg-white">
+                <span class="text-6xl font-extrabold text-gray-100 block mb-2">02</span>
+                <h3 class="text-xl font-bold mb-2">Design Finalization</h3>
+                <p class="text-gray-500 text-sm">Material selection and final sign-offs.</p>
             </div>
-            <div class="w-[350px] flex-shrink-0 p-6 border border-gray-100 rounded hover:shadow-lg transition-shadow">
-                <span class="text-5xl font-extrabold text-gray-200">03</span>
-                <h3 class="text-xl font-bold text-dark-gray mt-2">Production</h3>
-                <p class="text-gray-500 text-sm mt-2">Custom manufacturing in our automated factory.</p>
+            <div class="w-[350px] flex-shrink-0 p-8 border border-gray-100 rounded-lg hover:shadow-xl transition-all bg-white">
+                <span class="text-6xl font-extrabold text-gray-100 block mb-2">03</span>
+                <h3 class="text-xl font-bold mb-2">Production</h3>
+                <p class="text-gray-500 text-sm">Custom manufacturing in our automated factory.</p>
             </div>
-            <div class="w-[350px] flex-shrink-0 p-6 border border-gray-100 rounded hover:shadow-lg transition-shadow">
-                <span class="text-5xl font-extrabold text-gray-200">04</span>
-                <h3 class="text-xl font-bold text-dark-gray mt-2">Civil Work</h3>
-                <p class="text-gray-500 text-sm mt-2">On-site execution including flooring and electrical.</p>
+            <div class="w-[350px] flex-shrink-0 p-8 border border-gray-100 rounded-lg hover:shadow-xl transition-all bg-white">
+                <span class="text-6xl font-extrabold text-gray-100 block mb-2">04</span>
+                <h3 class="text-xl font-bold mb-2">Civil Work</h3>
+                <p class="text-gray-500 text-sm">On-site execution including flooring and electrical.</p>
             </div>
-            <div class="w-[350px] flex-shrink-0 p-6 border border-gray-100 rounded hover:shadow-lg transition-shadow">
-                <span class="text-5xl font-extrabold text-gray-200">05</span>
-                <h3 class="text-xl font-bold text-dark-gray mt-2">Handover</h3>
-                <p class="text-gray-500 text-sm mt-2">Final quality checks and key handover.</p>
+            <div class="w-[350px] flex-shrink-0 p-8 border border-gray-100 rounded-lg hover:shadow-xl transition-all bg-white">
+                <span class="text-6xl font-extrabold text-gray-100 block mb-2">05</span>
+                <h3 class="text-xl font-bold mb-2">Handover</h3>
+                <p class="text-gray-500 text-sm">Final quality checks and key handover.</p>
             </div>
-             <div class="w-[350px] flex-shrink-0 p-6 border border-gray-100 rounded hover:shadow-lg transition-shadow">
-                <span class="text-5xl font-extrabold text-gray-200">01</span>
-                <h3 class="text-xl font-bold text-dark-gray mt-2">Strategy & Design</h3>
-                <p class="text-gray-500 text-sm mt-2">Comprehensive design blueprint including 3D renders.</p>
+             <div class="w-[350px] flex-shrink-0 p-8 border border-gray-100 rounded-lg hover:shadow-xl transition-all bg-white">
+                <span class="text-6xl font-extrabold text-gray-100 block mb-2">01</span>
+                <h3 class="text-xl font-bold mb-2">Strategy & Design</h3>
+                <p class="text-gray-500 text-sm">Comprehensive design blueprint including 3D renders.</p>
             </div>
         </div>
     </section>
@@ -328,112 +311,109 @@
     <section class="py-20 bg-white">
         <div class="container mx-auto px-4 md:px-8 flex flex-col lg:flex-row gap-16 items-start">
             <div class="w-full lg:w-1/3 reveal">
-                <h2 class="text-3xl font-heading text-primary-orange mb-2">Studios</h2>
+                <div class="flex gap-4 mb-8">
+                    <button class="bg-primary-orange text-white px-6 py-2 font-bold shadow-md">Studio -</button>
+                    <button class="border border-gray-300 text-gray-500 px-6 py-2 font-bold">Projects Done +</button>
+                </div>
+                <h2 class="font-heading text-3xl text-primary-orange mb-2">Studios</h2>
                 <div class="h-0.5 w-full bg-primary-orange mb-8"></div>
                 <div class="flex flex-col gap-y-4">
                     <div class="flex items-center gap-3">
                         <svg class="w-6 h-6 text-primary-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
                         <div><h4 class="text-primary-orange font-bold text-xl">Delhi</h4><p class="text-gray-500 text-sm font-semibold">Headquarters & Main Studio</p></div>
                     </div>
-                    <p class="text-gray-500 text-sm leading-relaxed mt-4">We currently operate exclusively in Delhi NCR.</p>
-                    <a href="https://www.google.com/maps?q=7,+3rd+Floor+Hargobind+Enclave,+Karkadooma,+Delhi,+India+110092" target="_blank" class="flex items-center gap-2 text-primary-orange font-bold hover:underline mt-2"><span>View Location</span><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></a>
+                    <p class="text-gray-500 text-sm leading-relaxed mt-4">We currently operate exclusively in Delhi NCR, providing premium interior design services to businesses in the region.</p>
+                    <a href="https://maps.google.com" target="_blank" class="flex items-center gap-2 text-primary-orange font-bold hover:underline mt-2"><span>View Location</span><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></a>
                 </div>
             </div>
-            <div class="w-full lg:w-2/3 h-[500px] flex items-center justify-center reveal">
-                <img src="map-with-arrow.jpg" alt="Map" class="h-full w-auto object-contain drop-shadow-xl">
+            <div class="w-full lg:w-2/3 h-[500px] flex items-center justify-center reveal relative rounded-lg overflow-hidden shadow-lg">
+                <img src="https://static.vecteezy.com/system/resources/previews/000/353/410/original/vector-india-map.jpg" alt="Map" class="h-full w-full object-cover opacity-80">
+                <div class="absolute top-[30%] left-[40%] text-primary-orange animate-bounce">
+                    <svg class="w-12 h-12 fill-current" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                </div>
             </div>
         </div>
     </section>
 
-    <section class="py-20 bg-white">
-        <div class="container mx-auto px-4 md:px-8 max-w-4xl reveal">
-            <h2 class="font-bold text-4xl text-dark-gray text-center mb-12">Got <span class="text-primary-orange">Questions?</span></h2>
-            <div class="space-y-4">
-                <details class="border border-gray-200 rounded overflow-hidden bg-white">
-                    <summary class="flex justify-between items-center p-6 font-bold text-lg text-dark-gray">What is the typical timeline?<span class="text-primary-orange text-2xl">+</span></summary>
-                    <div class="p-6 pt-0 text-gray-600 leading-relaxed bg-gray-50">Our standard delivery time is 45 days from the design finalization date.</div>
-                </details>
-                <details class="border border-gray-200 rounded overflow-hidden bg-white">
-                    <summary class="flex justify-between items-center p-6 font-bold text-lg text-dark-gray">Do you provide warranty?<span class="text-primary-orange text-2xl">+</span></summary>
-                    <div class="p-6 pt-0 text-gray-600 leading-relaxed bg-gray-50">Yes, we provide a 5-year warranty on all modular furniture.</div>
-                </details>
-                <details class="border border-gray-200 rounded overflow-hidden bg-white">
-                    <summary class="flex justify-between items-center p-6 font-bold text-lg text-dark-gray">Is consultation free?<span class="text-primary-orange text-2xl">+</span></summary>
-                    <div class="p-6 pt-0 text-gray-600 leading-relaxed bg-gray-50">Absolutely! The initial design consultation is completely free.</div>
-                </details>
-                <details class="border border-gray-200 rounded overflow-hidden bg-white">
-                    <summary class="flex justify-between items-center p-6 font-bold text-lg text-dark-gray">Can I customize designs?<span class="text-primary-orange text-2xl">+</span></summary>
-                    <div class="p-6 pt-0 text-gray-600 leading-relaxed bg-gray-50">Yes, we specialize in bespoke designs tailored to your brand.</div>
-                </details>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-24 bg-white relative overflow-hidden">
-        <div class="absolute top-0 right-0 w-96 h-96 bg-gray-50 rounded-bl-full -z-10"></div>
+    <section class="py-24 bg-gray-50 relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-96 h-96 bg-white rounded-bl-full -z-10"></div>
         <div class="container mx-auto px-4 md:px-8 flex flex-col md:flex-row items-center gap-12 lg:gap-20">
             <div class="w-full md:w-5/12 lg:w-4/12 reveal">
-                <div class="relative">
+                <div class="relative hover-zoom">
                     <div class="absolute top-4 -left-4 w-full h-full border-4 border-primary-orange rounded-sm z-0"></div>
-                    <div class="relative z-10 rounded-sm overflow-hidden shadow-card h-[450px]">
-                        <img src="founder.jpg" alt="Kartik Papreja" class="w-full h-full object-cover hover:scale-105 transition-transform duration-700">
+                    <div class="relative z-10 rounded-sm overflow-hidden shadow-2xl h-[450px]">
+                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=800&auto=format&fit=crop" alt="Kartik Papreja" class="w-full h-full object-cover">
                     </div>
                 </div>
             </div>
             <div class="w-full md:w-7/12 lg:w-8/12 text-center md:text-left reveal">
-                <h2 class="font-bold text-4xl text-dark-gray mb-2">Meet the <span class="text-primary-orange">Visionary</span></h2>
-                <h3 class="font-bold text-3xl text-dark-gray mt-4">Kartik Papreja</h3>
+                <h2 class="font-bold text-4xl mb-2">Meet the <span class="text-primary-orange">Visionary</span></h2>
+                <h3 class="font-bold text-3xl mt-4">Kartik Papreja</h3>
                 <p class="text-primary-orange font-bold uppercase tracking-widest text-sm mb-8">Founder & Principal Designer</p>
-                <div class="relative bg-gray-50 p-8 rounded border-l-4 border-primary-orange">
-                    <p class="text-gray-600 leading-loose italic">"Design is not just about aesthetics; it's about creating environments that inspire efficiency and growth. At Aartique Designs, we merge technical precision with artistic vision."</p>
-                </div>
-                <div class="mt-8 flex flex-wrap justify-center md:justify-start gap-4">
-                    <span class="px-4 py-2 bg-white border border-gray-200 rounded-full text-xs font-bold text-gray-500 uppercase">Workplace Strategy</span>
-                    <span class="px-4 py-2 bg-white border border-gray-200 rounded-full text-xs font-bold text-gray-500 uppercase">Space Planning</span>
-                    <span class="px-4 py-2 bg-white border border-gray-200 rounded-full text-xs font-bold text-gray-500 uppercase">Project Management</span>
+                <div class="relative bg-white p-8 rounded-lg border-l-4 border-primary-orange shadow-sm">
+                    <p class="text-gray-600 leading-loose italic text-lg">"Design is not just about aesthetics; it's about creating environments that inspire efficiency and growth. At Aartique Designs, we merge technical precision with artistic vision to deliver spaces that truly work for your business."</p>
                 </div>
             </div>
         </div>
     </section>
 
     <footer class="bg-dark-gray text-white pt-16 pb-8 border-t-8 border-primary-orange">
-        <div class="container mx-auto px-4 md:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
-                <div class="md:col-span-1">
-                    <div class="mb-6 flex items-center gap-2">
-                        <svg viewBox="0 0 100 100" class="w-8 h-8" fill="none" stroke="#E67E22" stroke-width="8"><path d="M50 10 L85 90 H15 L50 10Z" /><path d="M32 65 H68" /></svg>
-                        <span class="font-bold text-white uppercase">Aartique</span>
-                    </div>
-                    <p class="text-gray-400 text-sm leading-relaxed mb-6">Fast, premium, hassle-free interiors for modern businesses.</p>
-                    <div class="text-gray-400 text-sm mb-4"><p>7, 3rd Floor Hargobind Enclave,</p><p>Karkadooma, Delhi, 110092</p><p class="mt-2 text-primary-orange font-bold">+91 9315623951</p><p>aartiqueinteriors@gmail.com</p></div>
+        <div class="container mx-auto px-4 md:px-8 grid md:grid-cols-4 gap-8 mb-10 text-sm">
+            <div>
+                <div class="mb-6 flex items-center gap-2">
+                    <svg viewBox="0 0 100 100" class="w-8 h-8" fill="none" stroke="#E67E22" stroke-width="8"><path d="M50 10 L85 90 H15 L50 10Z" /><path d="M32 65 H68" /></svg>
+                    <span class="font-bold text-white uppercase text-lg">Aartique</span>
                 </div>
-                <div><h4 class="font-bold text-lg mb-6 text-primary-orange">Company</h4><ul class="space-y-3 text-sm text-gray-300"><li><a href="#about">About Us</a></li><li><a href="#projects">Projects</a></li><li><a href="#contact">Contact</a></li></ul></div>
-                <div><h4 class="font-bold text-lg mb-6 text-primary-orange">Services</h4><ul class="space-y-3 text-sm text-gray-300"><li>Workplace Design</li><li>Retail Interiors</li><li>Institutes</li></ul></div>
-                <div><h4 class="font-bold text-lg mb-6 text-primary-orange">Stay Updated</h4><div class="flex"><input type="email" placeholder="Your email" class="bg-gray-800 text-white px-4 py-2 text-sm w-full"><button class="bg-primary-orange px-4 font-bold">GO</button></div></div>
+                <p class="text-gray-400 mb-4 leading-relaxed">Fast, premium, hassle-free interiors for modern businesses.</p>
+                <p class="mt-4 text-primary-orange font-bold">+91 9315623951</p>
             </div>
-            <div class="border-t border-gray-700 pt-8 flex justify-between items-center text-xs text-gray-500"><p>© 2025 Aartique Designs.</p><p>Website by <span class="text-white font-bold">BRAND SPARK</span></p></div>
+            <div>
+                <h4 class="font-bold text-lg mb-4 text-primary-orange">Links</h4>
+                <ul class="space-y-2 text-gray-400">
+                    <li><a href="#about" class="hover:text-white transition-colors">About Us</a></li>
+                    <li><a href="#projects" class="hover:text-white transition-colors">Projects</a></li>
+                    <li><a href="#contact" class="hover:text-white transition-colors">Contact</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold text-lg mb-4 text-primary-orange">Services</h4>
+                <ul class="space-y-2 text-gray-400">
+                    <li>Workplace Design</li>
+                    <li>Retail Interiors</li>
+                    <li>Institutes</li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold text-lg mb-4 text-primary-orange">Newsletter</h4>
+                <div class="flex"><input type="email" placeholder="Email" class="p-2 bg-gray-700 text-white w-full outline-none"><button class="bg-primary-orange px-4 font-bold hover:bg-white hover:text-primary-orange transition-colors">GO</button></div>
+            </div>
+        </div>
+        <div class="border-t border-gray-700 pt-6 text-center text-xs text-gray-500">
+            &copy; 2025 Aartique Designs. Website by <span class="text-white font-bold">BRAND SPARK</span>.
         </div>
     </footer>
 
     <script>
-        // 1. Gallery Logic
+        // 1. Gallery Logic (Unsplash Images)
         const galleryData = [
-            { img: 'workpace design.jpg', title: 'Workplace Designing' },
-            { img: 'retail.jpg', title: 'Retail Designing' },
-            { img: 'institute.jpg', title: 'Institute Designing' },
-            { img: 'hospitility.jpg', title: 'Hospitality Designing' }
+            { img: 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=1200', title: 'Workplace Designing' },
+            { img: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=1200', title: 'Retail Designing' },
+            { img: 'https://images.unsplash.com/photo-1562774053-701939374585?q=80&w=1200', title: 'Institute Designing' },
+            { img: 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?q=80&w=1200', title: 'Hospitality Designing' }
         ];
+
         function changeGallery(index) {
             const buttons = document.querySelectorAll('.gallery-btn');
             buttons.forEach(btn => {
-                btn.classList.remove('border-primary-orange', 'text-primary-orange', 'bg-light-gray');
+                btn.classList.remove('border-primary-orange', 'text-primary-orange', 'bg-gray-50');
                 btn.classList.add('border-transparent', 'text-gray-400');
             });
             buttons[index].classList.remove('border-transparent', 'text-gray-400');
-            buttons[index].classList.add('border-primary-orange', 'text-primary-orange', 'bg-light-gray');
+            buttons[index].classList.add('border-primary-orange', 'text-primary-orange', 'bg-gray-50');
             
             const img = document.getElementById('gallery-img');
             const title = document.getElementById('gallery-title');
+            
             img.style.opacity = 0;
             setTimeout(() => {
                 img.src = galleryData[index].img;
@@ -459,24 +439,29 @@
         const resultDiv = document.getElementById('success-message');
         const btn = document.getElementById('submitBtn');
 
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            btn.innerHTML = 'Sending...';
-            const formData = new FormData(form);
-            fetch('https://api.web3forms.com/submit', {
-                method: 'POST',
-                body: formData
-            })
-            .then(async (response) => {
-                if (response.status == 200) {
-                    form.style.display = 'none';
-                    resultDiv.classList.remove('hidden');
-                }
-            })
-            .catch(error => {
-                btn.innerHTML = 'Error. Try Again.';
+        if(form) {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                btn.innerHTML = 'Sending...';
+                btn.disabled = true;
+                const formData = new FormData(form);
+                fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(async (response) => {
+                    if (response.status == 200) {
+                        form.style.display = 'none';
+                        resultDiv.classList.remove('hidden');
+                    }
+                })
+                .catch(error => {
+                    console.error(error);
+                    btn.innerHTML = 'Error. Try Again.';
+                    btn.disabled = false;
+                });
             });
-        });
+        }
     </script>
 </body>
 </html>
