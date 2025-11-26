@@ -33,63 +33,77 @@
       }
     </script>
     <style>
-      /* Custom scrollbar for better aesthetics */
-      ::-webkit-scrollbar {
-        width: 8px;
-        height: 8px;
-      }
-      ::-webkit-scrollbar-track {
-        background: #f1f1f1; 
-      }
-      ::-webkit-scrollbar-thumb {
-        background: #ccc; 
-        border-radius: 4px;
-      }
-      ::-webkit-scrollbar-thumb:hover {
-        background: #E67E22; 
-      }
-      body {
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        scroll-behavior: smooth;
-      }
-      html {
-        scroll-behavior: smooth;
-      }
+      /* Custom scrollbar */
+      ::-webkit-scrollbar { width: 8px; height: 8px; }
+      ::-webkit-scrollbar-track { background: #f1f1f1; }
+      ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 4px; }
+      ::-webkit-scrollbar-thumb:hover { background: #E67E22; }
+      body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; scroll-behavior: smooth; }
+      html { scroll-behavior: smooth; }
     </style>
     
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-
-    <script type="importmap">
-{
-  "imports": {
-    "framer-motion": "https://esm.sh/framer-motion@10.16.4",
-    "lucide-react": "https://esm.sh/lucide-react@0.292.0",
-    "react-dom/client": "https://esm.sh/react-dom@18.2.0/client",
-    "react": "https://esm.sh/react@18.2.0",
-    "react/": "https://aistudiocdn.com/react@^19.2.0/",
-    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/"
-  }
-}
-</script>
+    <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js"></script>
   </head>
   <body>
     <div id="root"></div>
 
-    <script type="text/babel" data-type="module">
-      import React, { useState, useEffect } from 'react';
-      import { createRoot } from 'react-dom/client';
-      import { motion, AnimatePresence } from 'framer-motion';
-      import { 
-        Mail, Menu, MessageCircle, Check, 
-        Clock, ShieldCheck, Box, CheckCircle, ClipboardCheck,
-        Layout, Palette, DollarSign, Users, Award,
-        Zap, Shield, Cpu, PenTool,
-        ChevronLeft, ChevronRight,
-        Search, MapPin, Plus, Quote,
-        Facebook, Twitter, Instagram, Linkedin,
-        Home
-      } from 'lucide-react';
+    <script type="text/babel">
+      // --- Global Variables (No Imports) ---
+      const { useState, useEffect } = React;
+      const { motion, AnimatePresence } = window.Motion;
+
+      // --- Custom Icon Component (Replaces Lucide to fix White Screen) ---
+      const Icon = ({ name, size = 24, className = "" }) => {
+        const paths = {
+          Mail: "M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z M22 6l-10 7L2 6",
+          Menu: "M4 12h16 M4 6h16 M4 18h16",
+          MessageCircle: "M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z",
+          Check: "M20 6 9 17l-5-5",
+          Clock: "M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20z M12 6v6l4 2",
+          ShieldCheck: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z M9 12l2 2 4-4",
+          Box: "M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z M3.27 6.96 12 12.01l8.73-5.05 M12 22.08V12",
+          CheckCircle: "M22 11.08V12a10 10 0 1 1-5.93-9.14 M22 4 12 14.01l-3-3",
+          ClipboardCheck: "M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2 M15 2H9a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1z M9 11l2 2 4-4",
+          Layout: "M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2z M3 9h18 M9 21V9",
+          Palette: "M12 2a10 10 0 1 0 10 10c0-1.33-.67-2.67-2-2.67-1.67 0-1.67-1.33-1.67-2 0-.67.67-1.34 0-2-.67-.67-2-1.33-2-2 0-.66-1.33-1.33-2-1.33-1.33 0-2.33.67-2.33 2S12 2 12 2z",
+          DollarSign: "M12 1v22 M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6",
+          Users: "M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2 M16 3.13a4 4 0 0 1 0 7.75 M23 21v-2a4 4 0 0 0-3-3.87",
+          Award: "M12 15c-3.87 0-7-3.13-7-7a7 7 0 1 1 14 0c0 3.87-3.13 7-7 7z M8.21 13.89 7 23l5-3 5 3-1.21-9.12",
+          Zap: "M13 2L3 14h9l-1 8 10-12h-9l1-8z",
+          Shield: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z",
+          Cpu: "M4 4h16v16H4z M9 9h6v6H9z M9 1v3 M15 1v3 M9 20v3 M15 20v3 M20 9h3 M20 14h3 M1 9h3 M1 14h3",
+          PenTool: "M12 19l7-7 3 3-7 7-3-3z M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z M2 2l7.586 7.586 M11 11l-4 4",
+          ChevronLeft: "M15 18l-6-6 6-6",
+          ChevronRight: "M9 18l6-6-6-6",
+          Search: "M21 21l-4.35-4.35 M19 11a8 8 0 1 1-16 0 8 8 0 0 1 16 0z",
+          MapPin: "M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z M12 10a3 3 0 0 1 0-6 3 3 0 0 1 0 6z",
+          Plus: "M12 5v14 M5 12h14",
+          Quote: "M3 21c3 0 7-1 7-8V5c0-1.25-.75-2-2-2H4c-1.25 0-2 .75-2 2v6c0 1.25.75 2 2 2h1v1c0 1-1 2-2 2s-1 1-1 1v3.5c0 .28.22.5.5.5z M15 21c3 0 7-1 7-8V5c0-1.25-.75-2-2-2h-4c-1.25 0-2 .75-2 2v6c0 1.25.75 2 2 2h1v1c0 1-1 2-2 2s-1 1-1 1v3.5c0 .28.22.5.5.5z",
+          Facebook: "M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z",
+          Twitter: "M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z",
+          Instagram: "M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z M17.5 6.5h.01 M16 2H8C4.69 2 2 4.69 2 8v8c0 3.31 2.69 6 6 6h8c3.31 0 6-2.69 6-6V8c0-3.31-2.69-6-6-6z",
+          Linkedin: "M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z M2 9h4v12H2z M4 2a2 2 0 1 1-2 2 2 2 0 0 1 2-2z"
+        };
+
+        return (
+          <svg 
+            width={size} 
+            height={size} 
+            viewBox="0 0 24 24" 
+            fill="none" 
+            stroke="currentColor" 
+            strokeWidth="2" 
+            strokeLinecap="round" 
+            strokeLinejoin="round" 
+            className={className}
+          >
+            <path d={paths[name] || ""} />
+          </svg>
+        );
+      };
 
       // --- Components ---
 
@@ -158,11 +172,11 @@
 
               <div className="flex items-center gap-6">
                 <a href="mailto:aartiqueinteriors@gmail.com" className="hidden md:flex items-center gap-2 text-sm font-semibold hover:text-primary-orange transition-colors">
-                  <Mail size={16} className="text-primary-orange" />
+                  <Icon name="Mail" size={16} className="text-primary-orange" />
                   <span>aartiqueinteriors@gmail.com</span>
                 </a>
                 <button className="md:hidden p-2 text-dark-gray">
-                  <Menu size={24} />
+                  <Icon name="Menu" size={24} />
                 </button>
               </div>
             </div>
@@ -228,7 +242,6 @@
                     transition={{ duration: 1, delay: 0.2 }}
                     className="w-full h-[400px] md:h-[500px] rounded-sm overflow-hidden shadow-lg relative z-10"
                   >
-                    {/* CHANGED: Used front.jpg */}
                     <img 
                       src="./front.jpg" 
                       alt="Premium Interior Design by Aartique" 
@@ -328,7 +341,7 @@
 
                       <div className="flex items-center justify-between py-2 cursor-pointer" onClick={() => setWhatsappEnabled(!whatsappEnabled)}>
                         <div className="flex items-center gap-2 text-sm text-gray-600">
-                          <MessageCircle size={18} className={whatsappEnabled ? "text-green-500" : "text-gray-400"} />
+                          <Icon name="MessageCircle" size={18} className={whatsappEnabled ? "text-green-500" : "text-gray-400"} />
                           <span>Contact via Whatsapp</span>
                         </div>
                         <div className={`w-10 h-5 rounded-full relative transition-colors duration-300 ${whatsappEnabled ? 'bg-primary-orange' : 'bg-gray-300'}`}>
@@ -352,16 +365,15 @@
       // 4. Features Component
       const Features = () => {
         const featuresList = [
-          { id: 1, icon: <Clock size={24} />, text: '45 to 60 days Delivery' },
-          { id: 2, icon: <ShieldCheck size={24} />, text: 'Upto 5 Years Warranty' },
-          { id: 3, icon: <Box size={24} />, text: '3D Walkthroughs' },
-          { id: 4, icon: <CheckCircle size={24} />, text: '100+ Projects Delivered' },
-          { id: 5, icon: <ClipboardCheck size={24} />, text: 'Complete Project Management' },
+          { id: 1, icon: <Icon name="Clock" size={24} />, text: '45 to 60 days Delivery' },
+          { id: 2, icon: <Icon name="ShieldCheck" size={24} />, text: 'Upto 5 Years Warranty' },
+          { id: 3, icon: <Icon name="Box" size={24} />, text: '3D Walkthroughs' },
+          { id: 4, icon: <Icon name="CheckCircle" size={24} />, text: '100+ Projects Delivered' },
+          { id: 5, icon: <Icon name="ClipboardCheck" size={24} />, text: 'Complete Project Management' },
         ];
 
         // Triple the base set to ensure we have enough content width for larger screens
         const baseSet = [...featuresList, ...featuresList, ...featuresList];
-        // Create two identical halves for the seamless loop technique
         const marqueeItems = [...baseSet, ...baseSet];
 
         return (
@@ -374,7 +386,6 @@
                     <div className="text-primary-orange flex-shrink-0">{feature.icon}</div>
                     <span className="font-semibold text-sm md:text-base tracking-wide whitespace-nowrap">{feature.text}</span>
                   </div>
-                  {/* Orange Separator Diamond */}
                   <div className="w-2 h-2 bg-primary-orange rotate-45 flex-shrink-0 opacity-50" />
                 </React.Fragment>
               ))}
@@ -401,12 +412,12 @@
       // 5. Offers Component
       const Offers = () => {
         const offersList = [
-          { id: 1, icon: <Layout />, title: "Space Planning", description: "Efficient layouts maximizing your floor area productivity." },
-          { id: 2, icon: <Palette />, title: "Custom Design", description: "Unique aesthetics tailored to your brand identity." },
-          { id: 3, icon: <Box />, title: "Modular Furniture", description: "Ergonomic workstations and adaptable meeting pods." },
-          { id: 4, icon: <DollarSign />, title: "Budget Friendly", description: "Transparent pricing with no hidden costs." },
-          { id: 5, icon: <Users />, title: "Project Management", description: "End-to-end execution with a dedicated manager." },
-          { id: 6, icon: <Award />, title: "Quality Assurance", description: "Premium materials with rigorous quality checks." },
+          { id: 1, icon: <Icon name="Layout" />, title: "Space Planning", description: "Efficient layouts maximizing your floor area productivity." },
+          { id: 2, icon: <Icon name="Palette" />, title: "Custom Design", description: "Unique aesthetics tailored to your brand identity." },
+          { id: 3, icon: <Icon name="Box" />, title: "Modular Furniture", description: "Ergonomic workstations and adaptable meeting pods." },
+          { id: 4, icon: <Icon name="DollarSign" />, title: "Budget Friendly", description: "Transparent pricing with no hidden costs." },
+          { id: 5, icon: <Icon name="Users" />, title: "Project Management", description: "End-to-end execution with a dedicated manager." },
+          { id: 6, icon: <Icon name="Award" />, title: "Quality Assurance", description: "Premium materials with rigorous quality checks." },
         ];
 
         return (
@@ -480,7 +491,7 @@
                     transition={{ delay: 0.3, duration: 0.6 }}
                     className="absolute -bottom-8 -right-4 md:-right-10 bg-white p-6 shadow-xl max-w-xs border-l-4 border-primary-orange"
                   >
-                    <Cpu className="text-primary-orange mb-3" size={32} />
+                    <Icon name="Cpu" className="text-primary-orange mb-3" size={32} />
                     <h3 className="font-heading font-bold text-xl mb-2">Tech Driven</h3>
                     <p className="text-sm text-gray-500">We utilize cutting-edge technology for precision planning and faster execution.</p>
                   </motion.div>
@@ -493,7 +504,7 @@
                 </div>
               </div>
 
-              {/* Block 2 (Reversed) - CHANGED IMAGE TO 'premium and fast.jpg' */}
+              {/* Block 2 (Reversed) */}
               <div className="flex flex-col md:flex-row-reverse items-center gap-10">
                 <motion.div 
                   initial={{ opacity: 0, x: 50 }}
@@ -515,7 +526,7 @@
                     className="absolute -bottom-8 -left-4 md:-left-10 bg-white p-6 shadow-xl max-w-xs border-r-4 border-primary-orange text-right"
                   >
                     <div className="flex justify-end mb-3">
-                       <Shield className="text-primary-orange" size={32} />
+                       <Icon name="Shield" className="text-primary-orange" size={32} />
                     </div>
                     <h3 className="font-heading font-bold text-xl mb-2">Premium & Fast</h3>
                     <p className="text-sm text-gray-500">Experience hassle-free delivery of premium interiors tailored to modern business needs.</p>
@@ -534,14 +545,14 @@
         );
       };
 
-      // 7. Gallery Component (UPDATED IMAGES AND CATEGORIES)
+      // 7. Gallery Component
       const Gallery = () => {
         const categories = ['Workplace', 'Retail', 'Institutes', 'Hospitality'];
         const images = {
-          'Workplace': './workpace design.jpg', // Used exact spelling from screenshot (missing 's')
+          'Workplace': './workpace design.jpg',
           'Retail': './retail.jpg',
           'Institutes': './institute.jpg',
-          'Hospitality': './hospitility.jpg', // Used exact spelling from screenshot
+          'Hospitality': './hospitility.jpg',
         };
 
         const [activeCategory, setActiveCategory] = useState('Workplace');
@@ -606,10 +617,10 @@
                   {/* Navigation Arrows */}
                   <div className="flex gap-2 mt-4 justify-end">
                       <button onClick={handlePrev} className="w-12 h-12 bg-primary-orange text-white flex items-center justify-center hover:bg-orange-700 transition-colors">
-                        <ChevronLeft />
+                        <Icon name="ChevronLeft" />
                       </button>
                       <button onClick={handleNext} className="w-12 h-12 bg-primary-orange text-white flex items-center justify-center hover:bg-orange-700 transition-colors">
-                        <ChevronRight />
+                        <Icon name="ChevronRight" />
                       </button>
                   </div>
                 </div>
@@ -656,7 +667,7 @@
         );
       };
 
-      // 9. Projects Component (UPDATED IMAGES 1-6)
+      // 9. Projects Component
       const Projects = () => {
         const projectsList = [
           { id: 1, title: 'Tech Hub', img: './project1.jpg' },
@@ -694,7 +705,7 @@
                       />
                       <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center flex-col">
                         <div className="w-12 h-12 rounded-full border-2 border-white flex items-center justify-center text-white mb-2 scale-0 group-hover:scale-100 transition-transform duration-300 delay-100">
-                          <Search size={20} />
+                          <Icon name="Search" size={20} />
                         </div>
                         <h4 className="text-white font-heading font-bold text-lg translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-150">{proj.title}</h4>
                       </div>
@@ -789,7 +800,7 @@
         );
       };
 
-      // 11. StudiosMap Component (UPDATED IMAGE TO map-with-arrow.jpg)
+      // 11. StudiosMap Component
       const StudiosMap = () => {
         const cities = [
           { name: 'Delhi', top: '28%', left: '33%', active: true },
@@ -815,7 +826,7 @@
                           activeCity === city.name ? 'text-primary-orange translate-x-2' : 'text-gray-500'
                         }`}
                       >
-                        <MapPin size={18} className={activeCity === city.name ? 'opacity-100' : 'opacity-0'} />
+                        <Icon name="MapPin" size={18} className={activeCity === city.name ? 'opacity-100' : 'opacity-0'} />
                         {city.name} - HQ
                       </button>
                     ))}
@@ -834,7 +845,6 @@
                 <div className="w-full md:w-2/3 h-[500px] relative bg-white rounded-2xl shadow-inner overflow-hidden border border-gray-200 flex items-center justify-center p-4">
                   
                     <div className="relative w-full h-full max-w-[400px]">
-                      {/* CHANGED MAP IMAGE */}
                       <img 
                         src="./map-with-arrow.jpg"
                         alt="India Map"
@@ -910,7 +920,7 @@
                         animate={{ rotate: openIndex === index ? 45 : 0 }}
                         transition={{ duration: 0.2 }}
                       >
-                          <Plus size={24} className="text-primary-orange" />
+                          <Icon name="Plus" size={24} className="text-primary-orange" />
                       </motion.div>
                     </button>
                     
@@ -937,7 +947,7 @@
         );
       };
 
-      // 13. Founder Component (UPDATED IMAGE TO founder.jpg)
+      // 13. Founder Component
       const Founder = () => {
         return (
           <section className="py-24 bg-white relative overflow-hidden">
@@ -958,7 +968,6 @@
                     <div className="absolute top-4 -left-4 w-full h-full border-4 border-primary-orange rounded-sm z-0 transition-transform duration-500 ease-out group-hover:translate-x-[-10px] group-hover:translate-y-[10px]" />
                     
                     <div className="relative z-10 rounded-sm overflow-hidden shadow-card h-[400px] md:h-[450px] transition-all duration-500 group-hover:shadow-2xl">
-                      {/* CHANGED FOUNDER IMAGE */}
                       <img 
                         src="./founder.jpg" 
                         alt="Kartik Papreja - Founder" 
@@ -989,7 +998,7 @@
                   </p>
 
                   <div className="relative bg-gray-50 p-8 rounded-lg border-l-4 border-primary-orange">
-                    <Quote className="text-primary-orange/20 absolute top-4 left-4" size={48} />
+                    <Icon name="Quote" className="text-primary-orange/20 absolute top-4 left-4" size={48} />
                     <p className="text-gray-600 leading-loose italic relative z-10 text-lg">
                       "Design is not just about aesthetics; it's about creating environments that inspire efficiency and growth. At Aartique Designs, we merge technical precision with artistic vision to deliver spaces that truly work for your business."
                     </p>
@@ -1036,9 +1045,9 @@
                       <p>aartiqueinteriors@gmail.com</p>
                     </div>
                     <div className="flex gap-4">
-                      {[Facebook, Twitter, Instagram, Linkedin].map((Icon, i) => (
+                      {['Facebook', 'Twitter', 'Instagram', 'Linkedin'].map((name, i) => (
                         <a key={i} href="#" className="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center hover:bg-primary-orange transition-colors">
-                          <Icon size={16} />
+                          <Icon name={name} size={16} />
                         </a>
                       ))}
                     </div>
@@ -1097,8 +1106,8 @@
                  <p className="text-[10px] font-bold tracking-widest uppercase text-gray-500">Website Created by Brand Spark</p>
                  <a href="tel:7380311858" className="text-xs text-gray-400 hover:text-white transition-colors font-mono">7380311858</a>
                  <div className="flex gap-3">
-                    <a href="https://www.instagram.com/brandspark.official?igsh=NzcyeHhhcXo0bm9i" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-[#E1306C] transition-colors"><Instagram size={14} /></a>
-                    <a href="https://www.linkedin.com/company/brandsparkofficial/" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-[#0077b5] transition-colors"><Linkedin size={14} /></a>
+                    <a href="https://www.instagram.com/brandspark.official?igsh=NzcyeHhhcXo0bm9i" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-[#E1306C] transition-colors"><Icon name="Instagram" size={14} /></a>
+                    <a href="https://www.linkedin.com/company/brandsparkofficial/" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-[#0077b5] transition-colors"><Icon name="Linkedin" size={14} /></a>
                  </div>
               </motion.div>
 
@@ -1132,7 +1141,7 @@
 
       // --- Mounting ---
       const rootElement = document.getElementById('root');
-      const root = createRoot(rootElement);
+      const root = ReactDOM.createRoot(rootElement);
       root.render(
         <React.StrictMode>
           <App />
